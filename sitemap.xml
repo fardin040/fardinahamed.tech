@@ -1,49 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://mdfardinahamed.pages.dev/</loc>
+    <loc>https://fardinahamed.tech/</loc>
     <lastmod>2026-03-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://mdfardinahamed.pages.dev/content/blog/2026-01-15-my-cybersecurity-learning-journey.md</loc>
+    <loc>https://fardinahamed.tech/content/blog/2026-01-15-my-cybersecurity-learning-journey.md</loc>
     <lastmod>2026-01-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://mdfardinahamed.pages.dev/content/blog/2026-02-22-packet-analysis-using-wireshark.md</loc>
+    <loc>https://fardinahamed.tech/content/blog/2026-02-22-packet-analysis-using-wireshark.md</loc>
     <lastmod>2026-02-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://mdfardinahamed.pages.dev/content/blog/2026-03-10-understanding-tcp-handshake.md</loc>
+    <loc>https://fardinahamed.tech/content/blog/2026-03-10-understanding-tcp-handshake.md</loc>
     <lastmod>2026-03-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://mdfardinahamed.pages.dev/content/projects/arduino-projects.md</loc>
+    <loc>https://fardinahamed.tech/content/projects/arduino-projects.md</loc>
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://mdfardinahamed.pages.dev/content/projects/cybersecurity-labs.md</loc>
+    <loc>https://fardinahamed.tech/content/projects/cybersecurity-labs.md</loc>
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://mdfardinahamed.pages.dev/content/projects/network-packet-analysis.md</loc>
+    <loc>https://fardinahamed.tech/content/projects/network-packet-analysis.md</loc>
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://mdfardinahamed.pages.dev/content/projects/retail-pos-system.md</loc>
+    <loc>https://fardinahamed.tech/content/projects/retail-pos-system.md</loc>
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>

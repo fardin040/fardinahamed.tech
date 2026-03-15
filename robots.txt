@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /admin/
 
-Sitemap: https://mdfardinahamed.pages.dev/sitemap.xml
+Sitemap: https://fardinahamed.tech/sitemap.xml
