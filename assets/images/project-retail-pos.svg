@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" role="img" aria-label="Retail POS project cover">
+  <rect width="1200" height="680" fill="#16191d"/>
+  <rect x="120" y="120" width="960" height="440" rx="24" fill="#0f1012" stroke="#2a2f36"/>
+  <rect x="170" y="180" width="430" height="56" rx="8" fill="#fc8a7d" fill-opacity="0.25"/>
+  <rect x="170" y="270" width="320" height="18" rx="9" fill="#3d454f"/>
+  <rect x="170" y="305" width="260" height="18" rx="9" fill="#3d454f"/>
+  <rect x="170" y="340" width="220" height="18" rx="9" fill="#3d454f"/>
+  <rect x="690" y="180" width="340" height="280" rx="14" fill="#15181c" stroke="#303841"/>
+  <circle cx="740" cy="520" r="8" fill="#fc8a7d"/>
+</svg>

@@ -1,0 +1,56 @@
+backend:
+  name: github
+  repo: fardin040/fardinahamed.tech
+  branch: main
+  base_url: https://auth.decapbridge.com
+  auth_endpoint: auth
+
+site_url: https://mdfardinahamed.pages.dev
+display_url: https://mdfardinahamed.pages.dev
+logo_url: /assets/icons/favicon.svg
+publish_mode: simple
+
+editor:
+  preview: false
+
+slug:
+  encoding: ascii
+  clean_accents: true
+
+media_folder: assets/images
+public_folder: /assets/images
+
+collections:
+  - name: projects
+    label: Projects
+    folder: content/projects
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Description, name: description, widget: text }
+      - label: Technologies
+        name: technologies
+        widget: list
+        field: { label: Technology, name: technology, widget: string }
+      - { label: GitHub Link, name: github_link, widget: string, pattern: ['^https://github.com/.+', 'Must be a valid GitHub URL'] }
+      - { label: Image, name: image, widget: image, required: false }
+
+  - name: blog
+    label: Blog
+    folder: content/blog
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    extension: md
+    format: frontmatter
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Date, name: date, widget: datetime, date_format: "YYYY-MM-DD", time_format: false }
+      - label: Category
+        name: category
+        widget: select
+        options: [Networking, Security, Tools, Linux, Learning]
+      - { label: Excerpt, name: excerpt, widget: text }
+      - { label: Content, name: body, widget: markdown }

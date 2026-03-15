@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Portfolio Open Graph cover">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f1012"/>
+      <stop offset="100%" stop-color="#15181c"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="70%" cy="30%" r="50%">
+      <stop offset="0%" stop-color="#fc8a7d" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#fc8a7d" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <text x="90" y="265" fill="#f0ece6" font-size="74" font-family="DM Sans, sans-serif" font-weight="700">Md Fardin Ahamed</text>
+  <text x="90" y="335" fill="#fc8a7d" font-size="36" font-family="IBM Plex Mono, monospace">Cybersecurity &amp; Networking enthusiast</text>
+  <text x="90" y="400" fill="#79838c" font-size="24" font-family="DM Sans, sans-serif">Projects, writeups, and practical learning in security and networks.</text>
+</svg>

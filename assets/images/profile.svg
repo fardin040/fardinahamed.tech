@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-label="Md Fardin Ahamed profile placeholder">
+  <defs>
+    <radialGradient id="bg" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#222831"/>
+      <stop offset="100%" stop-color="#131517"/>
+    </radialGradient>
+  </defs>
+  <rect width="240" height="240" fill="url(#bg)"/>
+  <circle cx="120" cy="90" r="38" fill="#fc8a7d" fill-opacity="0.35"/>
+  <path d="M48 198c9-38 37-60 72-60s63 22 72 60" fill="#fc8a7d" fill-opacity="0.28"/>
+  <text x="120" y="222" text-anchor="middle" fill="#f0ece6" font-size="16" font-family="DM Sans, sans-serif">Md Fardin Ahamed</text>
+</svg>

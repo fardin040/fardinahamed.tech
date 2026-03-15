@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" role="img" aria-label="Arduino projects cover">
+  <rect width="1200" height="680" fill="#16191d"/>
+  <rect x="150" y="140" width="900" height="400" rx="28" fill="#0f1012" stroke="#2a2f36"/>
+  <rect x="250" y="230" width="700" height="220" rx="18" fill="#15181c" stroke="#313842"/>
+  <circle cx="350" cy="340" r="46" fill="#fc8a7d" fill-opacity="0.3"/>
+  <circle cx="850" cy="340" r="46" fill="#fc8a7d" fill-opacity="0.3"/>
+  <rect x="505" y="296" width="190" height="88" rx="10" fill="#20252b" stroke="#3a444f"/>
+</svg>

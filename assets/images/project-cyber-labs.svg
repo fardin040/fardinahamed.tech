@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" role="img" aria-label="Cybersecurity labs cover">
+  <rect width="1200" height="680" fill="#16191d"/>
+  <rect x="150" y="120" width="900" height="440" rx="24" fill="#0f1012" stroke="#2a2f36"/>
+  <path d="M600 190 l170 70 v90 c0 120 -95 198 -170 230 c-75 -32 -170 -110 -170 -230 v-90z" fill="#15181c" stroke="#37414c"/>
+  <path d="M600 250 v210" stroke="#fc8a7d" stroke-width="12"/>
+  <path d="M520 330 h160" stroke="#fc8a7d" stroke-width="12"/>
+</svg>
