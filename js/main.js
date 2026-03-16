@@ -338,6 +338,38 @@
     }
   }
 
+  async function loadProfileSettings() {
+    const avatar = document.getElementById('profile-avatar');
+    if (!avatar) return;
+
+    const fallbackSrc = avatar.getAttribute('data-fallback-src') || avatar.getAttribute('src') || '';
+    const fallbackAlt = avatar.getAttribute('data-fallback-alt') || avatar.getAttribute('alt') || 'Profile image';
+
+    const applyFallback = () => {
+      avatar.src = fallbackSrc;
+      avatar.alt = fallbackAlt;
+    };
+
+    try {
+      const response = await fetchWithTimeout('/content/settings/profile.md', { cache: 'no-store' }, 8000);
+      if (!response.ok) {
+        applyFallback();
+        return;
+      }
+
+      const markdown = await response.text();
+      const parsed = parseMarkdownFile(markdown);
+      const profileImage = safeUrl(parsed.data?.profile_image || '', '');
+      const profileAlt = String(parsed.data?.profile_image_alt || '').trim();
+
+      avatar.src = profileImage || fallbackSrc;
+      avatar.alt = profileAlt || fallbackAlt;
+      avatar.onerror = applyFallback;
+    } catch {
+      applyFallback();
+    }
+  }
+
   /* ── Navbar: scroll state ──────────────────────────────────── */
   const navbar = document.querySelector('.navbar');
 
@@ -422,6 +454,9 @@
   /* ── Scroll reveal (IntersectionObserver) ─────────────────── */
   createRevealObserver();
   observeRevealElements(document.body);
+
+  /* ── CMS profile settings ──────────────────────────────────── */
+  loadProfileSettings();
 
   /* ── CMS content from Markdown files ───────────────────────── */
   loadCmsContent();

@@ -37,6 +37,16 @@ media_folder: assets/images/uploads
 public_folder: /assets/images/uploads
 
 collections:
+  - name: settings
+    label: Site Settings
+    files:
+      - label: Profile
+        name: profile
+        file: content/settings/profile.md
+        fields:
+          - { label: Profile Image, name: profile_image, widget: image, required: false, hint: "Upload your profile picture here." }
+          - { label: Profile Image Alt Text, name: profile_image_alt, widget: string, required: false, hint: "Accessibility text for profile image." }
+
   - name: projects
     label: Projects
     folder: content/projects
