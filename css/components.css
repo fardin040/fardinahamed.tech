@@ -635,27 +635,9 @@
   color: var(--text-primary);
 }
 
-.about__practice-badge-link {
-  display: inline-flex;
-  border-radius: 10px;
-  transition: transform var(--ease-med), box-shadow var(--ease-med), opacity var(--ease-fast);
-}
-
-.about__practice-badge-link:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
-  opacity: 0.95;
-}
-
-.about__practice-badge {
-  width: min(100%, 330px);
-  height: auto;
-  border-radius: 10px;
-  border: 1px solid var(--border-hover);
-}
-
 .about__practice-badge-shell {
-  width: min(100%, 425px);
+  width: 100%;
+  max-width: 425px;
   border-radius: 14px;
   overflow: hidden;
   border: 1px solid var(--border-hover);
@@ -672,7 +654,7 @@
 
 .about__practice-badge-frame {
   width: 100%;
-  height: 116px;
+  height: 154px;
   display: block;
   border: 0;
   background: #121827;
@@ -707,8 +689,12 @@
     font-size: 0.84rem;
   }
 
+  .about__practice-badge-shell {
+    max-width: 100%;
+  }
+
   .about__practice-badge-frame {
-    height: 108px;
+    height: 140px;
   }
 }
 
