@@ -1,56 +1,32 @@
+# Use DecapBridge PKCE auth (required)
 backend:
-  name: github
+  name: git-gateway
   repo: fardin040/fardinahamed.tech
   branch: main
+  auth_type: pkce
   base_url: https://auth.decapbridge.com
-  auth_endpoint: auth
+  auth_endpoint: /sites/38e2875c-7253-4e0c-8d0c-d51013f14c44/pkce
+  auth_token_endpoint: /sites/38e2875c-7253-4e0c-8d0c-d51013f14c44/token
+  gateway_url: https://gateway.decapbridge.com
 
+  # See who did what (optional)
+  commit_messages:
+    create: Create {{collection}} “{{slug}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    update: Update {{collection}} “{{slug}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    delete: Delete {{collection}} “{{slug}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    uploadMedia: Upload “{{path}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    deleteMedia: Delete “{{path}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    openAuthoring: Message {{message}} - {{author-name}} <{{author-login}}> via DecapBridge
+
+# Enable PKCE fields (optional, recommended)
+auth:
+  email_claim: email
+  first_name_claim: first_name
+  last_name_claim: last_name
+  avatar_url_claim: avatar_url
+
+# Better Decap + Bridge logo (optional)
+logo_url: https://decapbridge.com/decapcms-with-bridge.svg
+
+# Add site links in Decap CMS (optional)
 site_url: https://fardinahamed.tech
-display_url: https://fardinahamed.tech
-logo_url: /assets/icons/favicon.svg
-publish_mode: simple
-
-editor:
-  preview: false
-
-slug:
-  encoding: ascii
-  clean_accents: true
-
-media_folder: assets/images
-public_folder: /assets/images
-
-collections:
-  - name: projects
-    label: Projects
-    folder: content/projects
-    create: true
-    slug: "{{slug}}"
-    extension: md
-    format: frontmatter
-    fields:
-      - { label: Title, name: title, widget: string }
-      - { label: Description, name: description, widget: text }
-      - label: Technologies
-        name: technologies
-        widget: list
-        field: { label: Technology, name: technology, widget: string }
-      - { label: GitHub Link, name: github_link, widget: string, pattern: ['^https://github.com/.+', 'Must be a valid GitHub URL'] }
-      - { label: Image, name: image, widget: image, required: false }
-
-  - name: blog
-    label: Blog
-    folder: content/blog
-    create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    extension: md
-    format: frontmatter
-    fields:
-      - { label: Title, name: title, widget: string }
-      - { label: Date, name: date, widget: datetime, date_format: "YYYY-MM-DD", time_format: false }
-      - label: Category
-        name: category
-        widget: select
-        options: [Networking, Security, Tools, Linux, Learning]
-      - { label: Excerpt, name: excerpt, widget: text }
-      - { label: Content, name: body, widget: markdown }
