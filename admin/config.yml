@@ -24,7 +24,7 @@ auth:
 site_url: https://fardinahamed.tech
 display_url: https://fardinahamed.tech
 logo_url: https://decapbridge.com/decapcms-with-bridge.svg
-publish_mode: simple
+publish_mode: editorial_workflow
 
 editor:
   preview: false
@@ -42,35 +42,56 @@ collections:
     folder: content/projects
     create: true
     slug: "{{slug}}"
+    summary: "{{title}}"
+    sortable_fields: [title]
+    view_filters:
+      - { label: Featured, field: featured, pattern: true }
     media_folder: "../../assets/images/projects"
     public_folder: "/assets/images/projects"
     extension: md
     format: frontmatter
     fields:
-      - { label: Title, name: title, widget: string }
-      - { label: Description, name: description, widget: text }
+      - { label: Title, name: title, widget: string, hint: "Keep it short and clear (recommended under 60 characters)." }
+      - { label: Description, name: description, widget: text, hint: "1-2 sentence summary for project cards." }
       - label: Technologies
         name: technologies
         widget: list
         field: { label: Technology, name: technology, widget: string }
       - { label: GitHub Link, name: github_link, widget: string, pattern: ['^https://github.com/.+', 'Must be a valid GitHub URL'] }
       - { label: Image, name: image, widget: image, required: false }
+      - { label: Image Alt Text, name: image_alt, widget: string, required: false, hint: "Describe the image for accessibility." }
+      - { label: Featured Project, name: featured, widget: boolean, default: false, required: false }
+      - { label: SEO Title, name: seo_title, widget: string, required: false, hint: "Optional. If empty, title is used." }
+      - { label: Meta Description, name: meta_description, widget: text, required: false, hint: "Optional. Keep between 120-160 characters." }
 
   - name: blog
     label: Blog
     folder: content/blog
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{date}} - {{title}}"
+    sortable_fields: [date, title, category]
+    view_filters:
+      - { label: Networking, field: category, pattern: Networking }
+      - { label: Security, field: category, pattern: Security }
+      - { label: Tools, field: category, pattern: Tools }
+      - { label: Linux, field: category, pattern: Linux }
+      - { label: Learning, field: category, pattern: Learning }
     media_folder: "../../assets/images/blog"
     public_folder: "/assets/images/blog"
     extension: md
     format: frontmatter
     fields:
-      - { label: Title, name: title, widget: string }
+      - { label: Title, name: title, widget: string, hint: "Recommended under 70 characters." }
       - { label: Date, name: date, widget: datetime, date_format: "YYYY-MM-DD", time_format: false }
       - label: Category
         name: category
         widget: select
         options: [Networking, Security, Tools, Linux, Learning]
-      - { label: Excerpt, name: excerpt, widget: text }
+      - { label: Excerpt, name: excerpt, widget: text, hint: "Short summary shown in blog cards." }
+      - { label: Cover Image, name: cover_image, widget: image, required: false }
+      - { label: Cover Image Alt Text, name: cover_image_alt, widget: string, required: false }
+      - { label: SEO Title, name: seo_title, widget: string, required: false, hint: "Optional. If empty, title is used." }
+      - { label: Meta Description, name: meta_description, widget: text, required: false, hint: "Optional. Keep between 120-160 characters." }
+      - { label: Featured Post, name: featured, widget: boolean, default: false, required: false }
       - { label: Content, name: body, widget: markdown }
