@@ -5,19 +5,191 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="robots" content="noindex,nofollow" />
   <title>Md Fardin Ahamed | CMS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
+    :root {
+      --bg-0: #0b0f14;
+      --bg-1: #101722;
+      --bg-2: #121a28;
+      --text: #eef4ff;
+      --muted: #9eabc4;
+      --brand: #fc8a7d;
+      --brand-soft: #ffb7ae;
+      --line: rgba(255, 255, 255, 0.08);
+    }
+
     body {
       margin: 0;
-      background: #0f1012;
-      color: #f0ece6;
-      font-family: "DM Sans", sans-serif;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: "Space Grotesk", sans-serif;
+      background:
+        radial-gradient(1200px 600px at 8% -10%, rgba(252, 138, 125, 0.22), transparent 52%),
+        radial-gradient(900px 480px at 100% 0%, rgba(81, 157, 255, 0.16), transparent 50%),
+        linear-gradient(160deg, var(--bg-0), var(--bg-1) 45%, var(--bg-2));
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      mask-image: radial-gradient(circle at center, black 30%, transparent 85%);
+      opacity: 0.45;
+    }
+
+    #cms-shell {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      transition: opacity 380ms ease, visibility 380ms ease;
+    }
+
+    #cms-shell.is-hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .cms-shell__card {
+      width: min(560px, calc(100vw - 48px));
+      border: 1px solid var(--line);
+      background: rgba(8, 13, 20, 0.76);
+      backdrop-filter: blur(14px);
+      border-radius: 22px;
+      padding: 30px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+      animation: shellUp 700ms ease;
+    }
+
+    .cms-shell__brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      font-size: 22px;
+    }
+
+    .cms-shell__brand img {
+      width: 28px;
+      height: 28px;
+    }
+
+    .cms-shell__kicker {
+      margin: 0;
+      color: var(--brand-soft);
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-family: "IBM Plex Mono", monospace;
+    }
+
+    .cms-shell__title {
+      margin: 8px 0 10px;
+      font-size: clamp(26px, 3.2vw, 36px);
+      line-height: 1.15;
+    }
+
+    .cms-shell__desc {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+      max-width: 50ch;
+    }
+
+    .cms-shell__status {
+      margin-top: 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(252, 138, 125, 0.28);
+      background: rgba(252, 138, 125, 0.09);
+      color: #ffd8d2;
+      font-size: 13px;
+      font-family: "IBM Plex Mono", monospace;
+    }
+
+    .cms-shell__dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--brand);
+      box-shadow: 0 0 0 0 rgba(252, 138, 125, 0.9);
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes shellUp {
+      from {
+        transform: translateY(16px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(252, 138, 125, 0.8); }
+      70% { box-shadow: 0 0 0 14px rgba(252, 138, 125, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(252, 138, 125, 0); }
+    }
+
+    @media (max-width: 640px) {
+      .cms-shell__card {
+        padding: 22px;
+      }
+
+      .cms-shell__title {
+        font-size: 26px;
+      }
     }
   </style>
 </head>
 <body>
+  <div id="cms-shell" aria-hidden="true">
+    <div class="cms-shell__card">
+      <div class="cms-shell__brand">
+        <img src="/assets/icons/favicon.svg" alt="" />
+        <span>Fardin CMS</span>
+      </div>
+      <p class="cms-shell__kicker">Content Studio</p>
+      <h1 class="cms-shell__title">Loading your workspace</h1>
+      <p class="cms-shell__desc">
+        Preparing the editor, collections, and media library. This screen disappears once Decap is ready.
+      </p>
+      <div class="cms-shell__status">
+        <span class="cms-shell__dot"></span>
+        Connecting...
+      </div>
+    </div>
+  </div>
+
   <noscript>
     <p style="padding:16px">JavaScript is required to use the CMS dashboard.</p>
   </noscript>
+  <script>
+    window.addEventListener('load', function () {
+      const shell = document.getElementById('cms-shell');
+      if (!shell) return;
+      setTimeout(function () {
+        shell.classList.add('is-hidden');
+      }, 700);
+    });
+  </script>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 </body>
 </html>
