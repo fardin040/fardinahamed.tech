@@ -1136,16 +1136,8 @@
   transform: translateY(-2px);
 }
 
-.footer__social-link img {
-  width: 15px;
-  height: 15px;
+.footer__social-link svg {
   display: block;
-  filter: grayscale(1) brightness(1.5);
-  transition: filter var(--ease-fast);
-}
-
-.footer__social-link:hover img {
-  filter: none;
 }
 
 @media (max-width: 480px) {
