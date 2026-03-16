@@ -370,6 +370,30 @@
     }
   }
 
+  function loadTryHackMeBadge() {
+    const badge = document.getElementById('tryhackme-badge');
+    if (!badge) return;
+
+    const liveSrc = badge.getAttribute('data-live-src');
+    if (!liveSrc) return;
+
+    const probe = new Image();
+    probe.decoding = 'async';
+    probe.loading = 'eager';
+
+    probe.onload = () => {
+      if (probe.naturalWidth > 0 && probe.naturalHeight > 0) {
+        badge.src = liveSrc;
+      }
+    };
+
+    probe.onerror = () => {
+      // Keep local fallback already set in markup.
+    };
+
+    probe.src = `${liveSrc}?v=${Date.now()}`;
+  }
+
   /* ── Navbar: scroll state ──────────────────────────────────── */
   const navbar = document.querySelector('.navbar');
 
@@ -457,6 +481,9 @@
 
   /* ── CMS profile settings ──────────────────────────────────── */
   loadProfileSettings();
+
+  /* ── TryHackMe badge progressive loading ───────────────────── */
+  loadTryHackMeBadge();
 
   /* ── CMS content from Markdown files ───────────────────────── */
   loadCmsContent();
