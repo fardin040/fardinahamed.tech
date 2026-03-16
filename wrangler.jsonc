@@ -1,9 +1,0 @@
-{
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "fardinahamed",
-  "main": "_worker.js",
-  "compatibility_date": "2025-09-27",
-  "assets": {
-    "directory": "."
-  }
-}
