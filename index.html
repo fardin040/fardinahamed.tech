@@ -313,24 +313,15 @@
 
           <div class="about__practice">
             <h3 class="about__practice-title">Cybersecurity Practice</h3>
-            <a
-              class="about__practice-badge-link"
-              href="https://tryhackme.com/p/fardinahamed"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Open TryHackMe profile for Md Fardin Ahamed"
-            >
-              <img
-                class="about__practice-badge"
-                id="tryhackme-badge"
-                src="/assets/images/tryhackme-badge-fallback.svg"
-                data-live-src="/api/tryhackme-badge"
-                alt="TryHackMe badge for Md Fardin Ahamed"
+            <div class="about__practice-badge-shell">
+              <iframe
+                class="about__practice-badge-frame"
+                src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=4145303"
+                title="TryHackMe badge for Md Fardin Ahamed"
                 loading="lazy"
-                decoding="async"
-                onerror="this.onerror=null;this.src='/assets/images/tryhackme-badge-fallback.svg';"
-              />
-            </a>
+                referrerpolicy="strict-origin-when-cross-origin"
+              ></iframe>
+            </div>
             <p class="about__practice-caption">
               I practice cybersecurity through hands-on labs and capture-the-flag challenges on TryHackMe.
             </p>
