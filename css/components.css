@@ -638,7 +638,7 @@
 .about__practice-badge-shell {
   display: block;
   align-self: stretch;
-  width: min(100%, 372px);
+  width: min(100%, 336px);
   border-radius: 14px;
   overflow: hidden;
   border: 1px solid var(--border-hover);
@@ -657,7 +657,7 @@
 
 .about__practice-badge-frame {
   width: 100%;
-  height: 126px;
+  height: 108px;
   display: block;
   border: 0;
   background: #121827;
@@ -693,11 +693,11 @@
   }
 
   .about__practice-badge-shell {
-    width: min(100%, 340px);
+    width: min(100%, 312px);
   }
 
   .about__practice-badge-frame {
-    height: 116px;
+    height: 100px;
   }
 }
 
