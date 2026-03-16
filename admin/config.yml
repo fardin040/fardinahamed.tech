@@ -5,8 +5,8 @@ backend:
   base_url: https://auth.decapbridge.com
   auth_endpoint: auth
 
-site_url: https://fardinahamed-tech.pages.dev
-display_url: https://fardinahamed-tech.pages.dev
+site_url: https://fardinahamed.tech
+display_url: https://fardinahamed.tech
 logo_url: /assets/icons/favicon.svg
 publish_mode: simple
 
