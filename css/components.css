@@ -347,7 +347,7 @@
 
 /* Main heading */
 .hero__title {
-  font-size: clamp(3.2rem, 8.5vw, 6rem);
+  font-size: clamp(1.8rem, 7.5vw, 6rem);
   font-weight: 800;
   letter-spacing: -0.04em;
   line-height: 1.02;
@@ -375,11 +375,7 @@
   color: var(--accent);
 }
 
-@media (max-width: 900px) {
-  .hero__title-name {
-    white-space: normal;
-  }
-}
+
 
 /* Subtitle */
 .hero__subtitle {
