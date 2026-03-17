@@ -13,11 +13,14 @@
       --bg-0: #0b0f14;
       --bg-1: #101722;
       --bg-2: #121a28;
+      --bg-3: #0f1727;
       --text: #eef4ff;
       --muted: #9eabc4;
       --brand: #fc8a7d;
       --brand-soft: #ffb7ae;
-      --line: rgba(255, 255, 255, 0.08);
+      --line: rgba(255, 255, 255, 0.1);
+      --line-strong: rgba(255, 255, 255, 0.16);
+      --ok: #9bffd0;
     }
 
     body {
@@ -30,6 +33,7 @@
         radial-gradient(900px 480px at 100% 0%, rgba(81, 157, 255, 0.16), transparent 50%),
         linear-gradient(160deg, var(--bg-0), var(--bg-1) 45%, var(--bg-2));
       overflow-x: hidden;
+      position: relative;
     }
 
     body::before {
@@ -42,6 +46,21 @@
       background-size: 40px 40px;
       mask-image: radial-gradient(circle at center, black 30%, transparent 85%);
       opacity: 0.45;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      width: 620px;
+      height: 620px;
+      right: -180px;
+      top: -220px;
+      border-radius: 50%;
+      background: conic-gradient(from 20deg, rgba(252, 138, 125, 0.18), rgba(87, 157, 255, 0.16), rgba(252, 138, 125, 0.08));
+      filter: blur(26px);
+      opacity: 0.7;
+      pointer-events: none;
+      animation: drift 10s ease-in-out infinite alternate;
     }
 
     #cms-shell {
@@ -61,14 +80,22 @@
     }
 
     .cms-shell__card {
-      width: min(560px, calc(100vw - 48px));
+      width: min(860px, calc(100vw - 48px));
       border: 1px solid var(--line);
       background: rgba(8, 13, 20, 0.76);
       backdrop-filter: blur(14px);
       border-radius: 22px;
-      padding: 30px;
+      padding: 32px;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+      display: grid;
+      grid-template-columns: 1.35fr 1fr;
+      gap: 28px;
       animation: shellUp 700ms ease;
+    }
+
+    .cms-shell__left,
+    .cms-shell__right {
+      min-width: 0;
     }
 
     .cms-shell__brand {
@@ -122,6 +149,47 @@
       font-family: "IBM Plex Mono", monospace;
     }
 
+    .cms-shell__loader {
+      margin-top: 16px;
+      width: 100%;
+      max-width: 420px;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .cms-shell__loader::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      width: 42%;
+      background: linear-gradient(90deg, rgba(252, 138, 125, 0.8), rgba(144, 184, 255, 0.9));
+      border-radius: inherit;
+      animation: loadingBar 1.8s ease-in-out infinite;
+    }
+
+    .cms-shell__chips {
+      margin-top: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .cms-shell__chip {
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.05);
+      color: #d6e3ff;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      letter-spacing: 0.03em;
+      font-family: "IBM Plex Mono", monospace;
+      text-transform: uppercase;
+    }
+
     .cms-shell__dot {
       width: 8px;
       height: 8px;
@@ -129,6 +197,66 @@
       background: var(--brand);
       box-shadow: 0 0 0 0 rgba(252, 138, 125, 0.9);
       animation: pulse 1.8s infinite;
+    }
+
+    .cms-panel {
+      border: 1px solid var(--line-strong);
+      background: linear-gradient(180deg, rgba(14, 24, 39, 0.92), rgba(10, 17, 29, 0.85));
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .cms-panel__head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      gap: 8px;
+    }
+
+    .cms-panel__label {
+      color: var(--brand-soft);
+      font-size: 11px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      font-family: "IBM Plex Mono", monospace;
+    }
+
+    .cms-panel__state {
+      color: var(--ok);
+      font-size: 11px;
+      font-family: "IBM Plex Mono", monospace;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .cms-panel__items {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 8px;
+    }
+
+    .cms-panel__item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      padding: 9px 10px;
+      font-size: 13px;
+      color: #d8e5ff;
+    }
+
+    .cms-panel__item span:last-child {
+      color: #9fb6d8;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
     }
 
     @keyframes shellUp {
@@ -148,13 +276,49 @@
       100% { box-shadow: 0 0 0 0 rgba(252, 138, 125, 0); }
     }
 
+    @keyframes loadingBar {
+      0% {
+        transform: translateX(-120%);
+      }
+      55% {
+        transform: translateX(110%);
+      }
+      100% {
+        transform: translateX(110%);
+      }
+    }
+
+    @keyframes drift {
+      from {
+        transform: translateY(0px) rotate(0deg);
+      }
+      to {
+        transform: translateY(18px) rotate(12deg);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cms-shell__card,
+      .cms-shell__dot,
+      .cms-shell__loader::before,
+      body::after {
+        animation: none;
+      }
+    }
+
     @media (max-width: 640px) {
       .cms-shell__card {
         padding: 22px;
+        grid-template-columns: 1fr;
+        gap: 16px;
       }
 
       .cms-shell__title {
         font-size: 26px;
+      }
+
+      .cms-shell__loader {
+        max-width: none;
       }
     }
   </style>
@@ -162,18 +326,42 @@
 <body>
   <div id="cms-shell" aria-hidden="true">
     <div class="cms-shell__card">
-      <div class="cms-shell__brand">
-        <img src="/assets/icons/favicon.svg" alt="" />
-        <span>Fardin CMS</span>
+      <div class="cms-shell__left">
+        <div class="cms-shell__brand">
+          <img src="/assets/icons/favicon.svg" alt="" />
+          <span>Fardin CMS</span>
+        </div>
+        <p class="cms-shell__kicker">Content Studio</p>
+        <h1 class="cms-shell__title">Loading your workspace</h1>
+        <p class="cms-shell__desc">
+          Preparing the editor, collections, and media library. This screen disappears once Decap is ready.
+        </p>
+        <div class="cms-shell__status">
+          <span class="cms-shell__dot"></span>
+          Connecting...
+        </div>
+        <div class="cms-shell__loader" aria-hidden="true"></div>
+        <div class="cms-shell__chips" aria-hidden="true">
+          <span class="cms-shell__chip">Projects</span>
+          <span class="cms-shell__chip">Blog</span>
+          <span class="cms-shell__chip">Site Settings</span>
+          <span class="cms-shell__chip">Media Library</span>
+        </div>
       </div>
-      <p class="cms-shell__kicker">Content Studio</p>
-      <h1 class="cms-shell__title">Loading your workspace</h1>
-      <p class="cms-shell__desc">
-        Preparing the editor, collections, and media library. This screen disappears once Decap is ready.
-      </p>
-      <div class="cms-shell__status">
-        <span class="cms-shell__dot"></span>
-        Connecting...
+
+      <div class="cms-shell__right" aria-hidden="true">
+        <div class="cms-panel">
+          <div class="cms-panel__head">
+            <span class="cms-panel__label">Boot Sequence</span>
+            <span class="cms-panel__state">Ready</span>
+          </div>
+          <ul class="cms-panel__items">
+            <li class="cms-panel__item"><span>Configuration</span><span>Loaded</span></li>
+            <li class="cms-panel__item"><span>Collections</span><span>Synced</span></li>
+            <li class="cms-panel__item"><span>Media Paths</span><span>Checked</span></li>
+            <li class="cms-panel__item"><span>Authentication</span><span>Secure</span></li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
