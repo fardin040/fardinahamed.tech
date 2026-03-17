@@ -61,6 +61,27 @@
     }
   }
 
+  function simpleHash(input) {
+    let hash = 0;
+    for (let i = 0; i < input.length; i += 1) {
+      hash = ((hash << 5) - hash) + input.charCodeAt(i);
+      hash |= 0;
+    }
+    return Math.abs(hash).toString(36);
+  }
+
+  function withCacheKey(url, key) {
+    if (!url || !key) return url;
+    try {
+      const parsed = new URL(url, window.location.origin);
+      if (!['http:', 'https:'].includes(parsed.protocol)) return url;
+      parsed.searchParams.set('cmsv', key);
+      return parsed.href;
+    } catch {
+      return url;
+    }
+  }
+
   function createRevealObserver() {
     revealObserver = new IntersectionObserver(
       (entries) => {
@@ -361,8 +382,9 @@
       const parsed = parseMarkdownFile(markdown);
       const profileImage = safeUrl(parsed.data?.profile_image || '', '');
       const profileAlt = String(parsed.data?.profile_image_alt || '').trim();
+      const cacheKey = simpleHash(markdown);
 
-      avatar.src = profileImage || fallbackSrc;
+      avatar.src = profileImage ? withCacheKey(profileImage, cacheKey) : fallbackSrc;
       avatar.alt = profileAlt || fallbackAlt;
       avatar.onerror = applyFallback;
     } catch {
