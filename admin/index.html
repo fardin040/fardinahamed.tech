@@ -334,7 +334,7 @@
         <p class="cms-shell__kicker">Content Studio</p>
         <h1 class="cms-shell__title">Loading your workspace</h1>
         <p class="cms-shell__desc">
-          Preparing the editor, collections, and media library. This screen disappears once Decap is ready.
+          Preparing the editor, collections, and media library. This screen disappears once Sveltia is ready.
         </p>
         <div class="cms-shell__status">
           <span class="cms-shell__dot"></span>
@@ -378,6 +378,13 @@
       }, 700);
     });
   </script>
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
+  <script>
+    if (window.SveltiaCMS) {
+      window.SveltiaCMS.init({
+        config: '/admin/config.yml'
+      });
+    }
+  </script>
 </body>
 </html>
