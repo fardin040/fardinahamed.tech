@@ -382,7 +382,11 @@
   <script>
     if (window.SveltiaCMS) {
       window.SveltiaCMS.init({
-        config: '/admin/config.yml'
+        config: '/admin/config.yml',
+        auth: {
+          // start auth via worker path (worker should be proxied to /.auth/)
+          startUrl: '/.auth/auth/start'
+        }
       });
     }
   </script>
