@@ -380,6 +380,22 @@
   </script>
   <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
   <script>
+    // Intercept and redirect any auth attempts to our Worker OAuth endpoint
+    const originalFetch = window.fetch;
+    window.fetch = function(...args) {
+      const [resource, config] = args;
+      const url = typeof resource === 'string' ? resource : resource.url;
+      
+      // Redirect Netlify auth requests to our Worker OAuth
+      if (url && (url.includes('api.netlify.com') || url.includes('/auth'))) {
+        console.log('[Auth Intercept] Redirecting auth request:', url);
+        window.location.href = '/.auth/auth/start';
+        return new Promise(() => {}); // Never resolve
+      }
+      
+      return originalFetch.apply(this, args);
+    };
+
     // Extract token from URL fragment if present (from OAuth callback)
     const tokenMatch = window.location.hash.match(/#token=([^&]*)/);
     const token = tokenMatch ? decodeURIComponent(tokenMatch[1]) : null;
