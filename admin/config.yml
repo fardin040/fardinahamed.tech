@@ -3,6 +3,9 @@ backend:
   repo: fardin040/fardinahamed.tech
   branch: main
 
+auth:
+  base_url: /.auth
+
 site_url: https://fardinahamed.tech
 display_url: https://fardinahamed.tech
 logo_url: https://fardinahamed.tech/assets/icons/favicon.svg
