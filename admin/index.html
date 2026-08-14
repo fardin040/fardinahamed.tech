@@ -380,22 +380,42 @@
   </script>
   <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
   <script>
+    // Extract token from URL fragment if present (from OAuth callback)
+    const tokenMatch = window.location.hash.match(/#token=([^&]*)/);
+    const token = tokenMatch ? decodeURIComponent(tokenMatch[1]) : null;
+    
+    if (token) {
+      // Store token and clean URL
+      localStorage.setItem('netlify_token', token);
+      window.history.replaceState(null, '', window.location.pathname);
+    }
+
     if (window.SveltiaCMS) {
       window.SveltiaCMS.init({
         config: '/admin/config.yml'
       });
+      
+      // If we have a token, authenticate with it
+      if (token || localStorage.getItem('netlify_token')) {
+        const savedToken = token || localStorage.getItem('netlify_token');
+        // Try to set auth on the backend
+        if (window.SveltiaCMS.authenticateBackend) {
+          window.SveltiaCMS.authenticateBackend(savedToken);
+        }
+      }
     }
-    // Fallback: if the Sveltia UI still opens a Netlify/Gateway auth URL,
-    // intercept clicks on any GitHub sign-in buttons and route them
-    // to our Worker start endpoint instead.
+
+    // Fallback: intercept auth attempts and redirect to Worker OAuth
     document.addEventListener('click', function (e) {
       const btn = e.target.closest && e.target.closest('a,button');
       if (!btn) return;
       const text = (btn.textContent || '').trim();
       const provider = btn.getAttribute && (btn.getAttribute('data-provider') || '').toLowerCase();
-      if (text.toLowerCase().includes('sign in with github') || provider === 'github') {
+      if (text.toLowerCase().includes('sign in') || text.toLowerCase().includes('login') || provider === 'github') {
         e.preventDefault();
+        e.stopPropagation();
         window.location.href = '/.auth/auth/start';
+        return false;
       }
     }, { capture: true });
   </script>
