@@ -1,7 +1,7 @@
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    const pathname = url.pathname.replace(/\/+$/, '');
+    const pathname = url.pathname.replace(/\/+$/, '').replace(/^\/.auth/, ''); // Remove /.auth prefix if present
 
     const ADMIN_URL = env.ADMIN_URL || 'https://fardinahamed.tech/admin/index.html';
     const CLIENT_ID = env.GITHUB_CLIENT_ID;
@@ -19,7 +19,7 @@ export default {
       const state = makeState();
       const params = new URLSearchParams({
         client_id: CLIENT_ID,
-        redirect_uri: `${url.origin}/auth/callback`,
+        redirect_uri: `${url.origin}/.auth/auth/callback`,
         scope: 'repo',
         state
       });
@@ -48,7 +48,7 @@ export default {
       const tokenRes = await fetch('https://github.com/login/oauth/access_token', {
         method: 'POST',
         headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-        body: JSON.stringify({ client_id: CLIENT_ID, client_secret: CLIENT_SECRET, code, redirect_uri: `${url.origin}/auth/callback`, state })
+        body: JSON.stringify({ client_id: CLIENT_ID, client_secret: CLIENT_SECRET, code, redirect_uri: `${url.origin}/.auth/auth/callback`, state })
       });
       const tokenJson = await tokenRes.json();
       const access_token = tokenJson.access_token;
