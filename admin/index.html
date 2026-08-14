@@ -389,6 +389,19 @@
         }
       });
     }
+    // Fallback: if the Sveltia UI still opens a Netlify/Gateway auth URL,
+    // intercept clicks on any GitHub sign-in buttons and route them
+    // to our Worker start endpoint instead.
+    document.addEventListener('click', function (e) {
+      const btn = e.target.closest && e.target.closest('a,button');
+      if (!btn) return;
+      const text = (btn.textContent || '').trim();
+      const provider = btn.getAttribute && (btn.getAttribute('data-provider') || '').toLowerCase();
+      if (text.toLowerCase().includes('sign in with github') || provider === 'github') {
+        e.preventDefault();
+        window.location.href = '/.auth/auth/start';
+      }
+    }, { capture: true });
   </script>
 </body>
 </html>
