@@ -380,7 +380,7 @@
   </script>
   <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
   <script>
-    // Intercept and redirect any auth attempts to our Worker OAuth endpoint
+    // Intercept and redirect any auth attempts to our Worker OAuth endpoint (workers.dev subdomain as workaround)
     const originalFetch = window.fetch;
     window.fetch = function(...args) {
       const [resource, config] = args;
@@ -388,8 +388,8 @@
       
       // Redirect Netlify auth requests to our Worker OAuth
       if (url && (url.includes('api.netlify.com') || url.includes('/auth'))) {
-        console.log('[Auth Intercept] Redirecting auth request:', url);
-        window.location.href = '/.auth/auth/start';
+        console.log('[Auth Intercept] Redirecting auth request to Worker:', url);
+        window.location.href = 'https://sveltia-oauth-worker.fardinahamed178.workers.dev/auth/start';
         return new Promise(() => {}); // Never resolve
       }
       
@@ -430,7 +430,7 @@
       if (text.toLowerCase().includes('sign in') || text.toLowerCase().includes('login') || provider === 'github') {
         e.preventDefault();
         e.stopPropagation();
-        window.location.href = '/.auth/auth/start';
+        window.location.href = 'https://sveltia-oauth-worker.fardinahamed178.workers.dev/auth/start';
         return false;
       }
     }, { capture: true });
