@@ -2,6 +2,8 @@ backend:
   name: github
   repo: fardin040/fardinahamed.tech
   branch: main
+  base_url: https://sveltia-oauth-worker.fardinahamed178.workers.dev
+  auth_endpoint: auth/start
 
 site_url: https://fardinahamed.tech
 display_url: https://fardinahamed.tech

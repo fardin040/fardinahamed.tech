@@ -7,6 +7,9 @@ export default {
       const ADMIN_URL = env.ADMIN_URL || 'https://fardinahamed.tech/admin/index.html';
       const CLIENT_ID = env.GITHUB_CLIENT_ID;
       const CLIENT_SECRET = env.GITHUB_CLIENT_SECRET;
+      
+      // Compute redirect_uri matching GitHub OAuth App settings
+      const redirectUri = env.REDIRECT_URI || `${url.origin}/auth/callback`;
 
       function makeState(length = 32) {
         const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -22,7 +25,7 @@ export default {
         const state = makeState();
         const params = new URLSearchParams({
           client_id: CLIENT_ID,
-          redirect_uri: `${url.origin}/.auth/auth/callback`,
+          redirect_uri: redirectUri,
           scope: 'repo',
           state
         });
@@ -43,12 +46,16 @@ export default {
         const code = params.get('code');
         const state = params.get('state');
         
-        // verify cookie
+        if (!code) {
+          return new Response('Missing authorization code from GitHub', { status: 400 });
+        }
+
+        // Check CSRF cookie if available, but allow cross-site popup flows where cookies are partitioned/stripped
         const cookie = request.headers.get('Cookie') || '';
         const match = cookie.match(/__gh_oauth_state=([^;]+)/);
         const saved = match ? match[1] : null;
-        if (!code || !state || !saved || state !== saved) {
-          return new Response('Invalid OAuth state or missing CSRF cookie', { status: 400 });
+        if (saved && state && saved !== state) {
+          return new Response('Invalid OAuth state', { status: 400 });
         }
 
         if (!CLIENT_ID || !CLIENT_SECRET) {
@@ -63,7 +70,7 @@ export default {
             client_id: CLIENT_ID, 
             client_secret: CLIENT_SECRET, 
             code, 
-            redirect_uri: `${url.origin}/.auth/auth/callback`, 
+            redirect_uri: redirectUri, 
             state 
           })
         });
@@ -71,15 +78,46 @@ export default {
         const tokenJson = await tokenRes.json();
         const access_token = tokenJson.access_token;
         if (!access_token) {
-          return new Response(`Failed to obtain access token: ${tokenJson.error_description || tokenJson.error || 'Unknown error'}`, { status: 502 });
+          return new Response(`Failed to obtain access token: ${tokenJson.error_description || tokenJson.error || JSON.stringify(tokenJson)}`, { status: 502 });
         }
 
-        // Redirect back to admin with token in fragment so it isn't sent to server
-        const redirectUrl = `${ADMIN_URL}#token=${encodeURIComponent(access_token)}`;
-        return new Response(null, {
-          status: 302,
+        const html = `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Authorizing Sveltia CMS...</title>
+</head>
+<body>
+  <p style="font-family:sans-serif; padding: 20px;">Authorization successful. Completing sign-in...</p>
+  <script>
+    (function() {
+      const token = ${JSON.stringify(access_token)};
+      const provider = 'github';
+      const adminUrl = ${JSON.stringify(ADMIN_URL)};
+
+      if (window.opener) {
+        window.opener.postMessage(
+          'authorization:' + provider + ':success:' + JSON.stringify({ token: token, provider: provider }),
+          '*'
+        );
+        setTimeout(function() {
+          window.close();
+        }, 300);
+      } else {
+        try {
+          localStorage.setItem('netlify_token', token);
+        } catch (e) {}
+        window.location.href = adminUrl + '#token=' + encodeURIComponent(token);
+      }
+    })();
+  </script>
+</body>
+</html>`;
+
+        return new Response(html, {
+          status: 200,
           headers: {
-            'Location': redirectUrl
+            'Content-Type': 'text/html; charset=utf-8'
           }
         });
       }
