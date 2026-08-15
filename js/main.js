@@ -716,6 +716,7 @@
 
     function openModal(e) {
       if (e) e.preventDefault();
+      loadCmsResumeData();
       modal.classList.add('is-open');
       modal.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
