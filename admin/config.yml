@@ -31,6 +31,39 @@ collections:
           - { label: Profile Image, name: profile_image, widget: image, required: false, hint: "Upload your profile picture here." }
           - { label: Profile Image Alt Text, name: profile_image_alt, widget: string, required: false, hint: "Accessibility text for profile image." }
 
+      - label: Resume & CV
+        name: resume
+        file: content/settings/resume.md
+        fields:
+          - { label: Full Name, name: full_name, widget: string, default: "Md Fardin Ahamed" }
+          - { label: Subtitle / Tagline, name: subtitle, widget: string, default: "Cybersecurity & Networking | ETE Student" }
+          - { label: Phone, name: phone, widget: string, default: "+880 1782-998818" }
+          - { label: Email, name: email, widget: string, default: "fardin.ahamed.ete@gmail.com" }
+          - { label: Location, name: location, widget: string, default: "Chittagong, Bangladesh" }
+          - { label: Website URL, name: website, widget: string, default: "https://fardinahamed.tech" }
+          - { label: Upload PDF Resume File, name: pdf_file, widget: file, required: false, hint: "Upload your PDF resume document here." }
+          - { label: Professional Summary, name: summary, widget: text }
+          - label: Core Skills & Competencies
+            name: skills
+            widget: list
+            field: { label: Skill, name: skill, widget: string }
+          - { label: Languages, name: languages, widget: string, default: "Bengali (Native), English (Professional)" }
+          - label: Education Entries
+            name: education
+            widget: list
+            fields:
+              - { label: Degree, name: degree, widget: string }
+              - { label: Period, name: period, widget: string }
+              - { label: Institution, name: institution, widget: string }
+              - { label: Coursework & Notes, name: notes, widget: text }
+          - label: Experience & Security Labs
+            name: experience
+            widget: list
+            fields:
+              - { label: Title, name: title, widget: string }
+              - { label: Tag / Category, name: tag, widget: string }
+              - { label: Description, name: description, widget: text }
+
   - name: projects
     label: Projects
     folder: content/projects
