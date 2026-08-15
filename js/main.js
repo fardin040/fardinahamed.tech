@@ -530,16 +530,39 @@
     const result = {};
     let currentKey = null;
     let currentObject = null;
+    let inBlockScalar = false;
+    let blockLines = [];
 
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i];
       const trimmed = line.trim();
+
+      if (inBlockScalar) {
+        if (line.startsWith('  ') || line.length === 0) {
+          blockLines.push(line.startsWith('  ') ? line.slice(2) : line);
+          continue;
+        } else {
+          result[currentKey] = blockLines.join('\n').trim();
+          inBlockScalar = false;
+          blockLines = [];
+        }
+      }
+
       if (!trimmed || trimmed.startsWith('#')) continue;
 
       const kvMatch = line.match(/^([a-zA-Z0-9_-]+):\s*(.*)$/);
       if (kvMatch) {
         const key = kvMatch[1];
         let val = kvMatch[2].trim();
+
+        if (val === '|-' || val === '|' || val === '>' || val === '>-') {
+          currentKey = key;
+          currentObject = null;
+          inBlockScalar = true;
+          blockLines = [];
+          continue;
+        }
+
         if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
           val = val.slice(1, -1);
         }
@@ -585,6 +608,10 @@
         }
         currentObject[subPropMatch[1]] = subVal;
       }
+    }
+
+    if (inBlockScalar && currentKey) {
+      result[currentKey] = blockLines.join('\n').trim();
     }
 
     return result;
