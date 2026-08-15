@@ -7,7 +7,7 @@ backend:
 
 site_url: https://fardinahamed.tech
 display_url: https://fardinahamed.tech
-logo_url: https://fardinahamed.tech/assets/icons/favicon.svg
+logo_url: /assets/icons/favicon.svg
 publish_mode: editorial_workflow
 
 editor:
