@@ -35,15 +35,33 @@
 }
 
 .navbar__logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   font-family: var(--font-heading);
-  font-size: 1.45rem;
+  font-size: 1.42rem;
   font-weight: 800;
   color: var(--text-primary);
   letter-spacing: -0.03em;
   transition: opacity var(--ease-fast);
 }
 
-.navbar__logo:hover { opacity: 0.8; }
+.navbar__logo-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  flex-shrink: 0;
+  transition: transform var(--ease-med), filter var(--ease-med);
+}
+
+.navbar__logo:hover {
+  opacity: 0.95;
+}
+
+.navbar__logo:hover .navbar__logo-icon {
+  transform: scale(1.08) rotate(-4deg);
+  filter: drop-shadow(0 4px 12px var(--accent-glow));
+}
 
 .navbar__logo-dot {
   color: var(--accent);
