@@ -686,8 +686,16 @@
 
       // Skills
       const skillsEl = document.getElementById('resume-cms-skills');
-      if (skillsEl && Array.isArray(data.skills)) {
-        skillsEl.innerHTML = data.skills.map(s => `<span>${escapeHtml(s)}</span>`).join('');
+      if (skillsEl) {
+        let skillList = [];
+        if (Array.isArray(data.skills)) {
+          skillList = data.skills;
+        } else if (typeof data.skills === 'string') {
+          skillList = data.skills.split('\n').map(s => s.replace(/^-\s*/, '').trim()).filter(Boolean);
+        }
+        if (skillList.length) {
+          skillsEl.innerHTML = skillList.map(s => `<span>${escapeHtml(s)}</span>`).join('');
+        }
       }
 
       // Languages
@@ -699,7 +707,9 @@
       // Summary
       const summaryEl = document.getElementById('resume-cms-summary');
       if (summaryEl && data.summary) {
-        summaryEl.textContent = data.summary;
+        let formattedSummary = escapeHtml(data.summary);
+        formattedSummary = formattedSummary.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        summaryEl.innerHTML = formattedSummary.replace(/\n\n+/g, '<br><br>');
       }
 
       // Education
