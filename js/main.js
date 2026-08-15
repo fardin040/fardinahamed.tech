@@ -843,7 +843,74 @@
     }, { passive: true });
   }
 
+  /* ── Fetch & Render CMS Profile (Who I Am) Data ───────────── */
+  async function loadCmsProfileData() {
+    try {
+      const timestamp = Date.now();
+      let markdownText = '';
+      
+      try {
+        const localRes = await fetchWithTimeout(`/content/settings/profile.md?t=${timestamp}`, { cache: 'no-store' }, 4000);
+        if (localRes.ok) {
+          markdownText = await localRes.text();
+        }
+      } catch {}
+
+      if (!markdownText) {
+        const ghRes = await fetchWithTimeout(`${GH_RAW_BASE}/content/settings/profile.md?t=${timestamp}`, {}, 6000);
+        if (ghRes.ok) {
+          markdownText = await ghRes.text();
+        }
+      }
+
+      if (!markdownText) return;
+
+      const data = parseYamlFrontmatter(markdownText);
+      if (!data || Object.keys(data).length === 0) return;
+
+      // Profile Image
+      if (data.profile_image) {
+        const imgUrl = safeUrl(data.profile_image);
+        document.querySelectorAll('img[alt*="Fardin"], .about__avatar-img, .hero__avatar-img').forEach(img => {
+          img.src = imgUrl;
+          if (data.profile_image_alt) img.alt = data.profile_image_alt;
+        });
+      }
+
+      // About Heading
+      if (data.about_heading) {
+        const titleEl = document.getElementById('about-title');
+        if (titleEl) titleEl.textContent = data.about_heading;
+      }
+
+      // Bio Text (Paragraphs & bold text converted to glowing highlight tags)
+      if (data.bio_text) {
+        const bioEl = document.getElementById('about-bio-text');
+        if (bioEl) {
+          const paragraphs = data.bio_text.split(/\n\n+/);
+          bioEl.innerHTML = paragraphs.map(p => {
+            let formatted = escapeHtml(p);
+            formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<span class="about__highlight">$1</span>');
+            return `<p>${formatted}</p>`;
+          }).join('');
+        }
+      }
+
+      // About Tags / Badges
+      if (Array.isArray(data.about_tags) && data.about_tags.length) {
+        const tagsEl = document.getElementById('about-tags');
+        if (tagsEl) {
+          tagsEl.innerHTML = data.about_tags.map(t => `<span class="tag">${escapeHtml(t)}</span>`).join('');
+        }
+      }
+
+    } catch (err) {
+      console.warn('CMS profile fetch warning:', err);
+    }
+  }
+
   function initAll() {
+    loadCmsProfileData();
     initResumeModal();
     initFooterYear();
     initBackToTop();

@@ -24,12 +24,18 @@ collections:
   - name: settings
     label: Site Settings
     files:
-      - label: Profile
+      - label: Profile & About Me
         name: profile
         file: content/settings/profile.md
         fields:
           - { label: Profile Image, name: profile_image, widget: image, required: false, hint: "Upload your profile picture here." }
           - { label: Profile Image Alt Text, name: profile_image_alt, widget: string, required: false, hint: "Accessibility text for profile image." }
+          - { label: About Section Heading, name: about_heading, widget: string, default: "Who I Am", hint: "Section title (e.g. Who I Am)" }
+          - { label: About Bio Text, name: bio_text, widget: markdown, hint: "Bio paragraphs for the Who I Am section. Use **bold** text to add glowing highlights." }
+          - label: About Badges & Tags
+            name: about_tags
+            widget: list
+            field: { label: Tag, name: tag, widget: string }
 
       - label: Resume & CV
         name: resume
