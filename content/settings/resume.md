@@ -11,7 +11,7 @@ skills:
   - Cisco Packet Tracer
   - Wireshark & Nmap
   - Linux SysAdmin
-  - Penetration Testing
+  - OSPF Configuration
   - TCP/IP Stack
   - Python Automation
   - Arduino / C++
