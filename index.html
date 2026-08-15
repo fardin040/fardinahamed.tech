@@ -129,7 +129,13 @@
           <li><a href="#about"    class="navbar__link">About</a></li>
           <li><a href="#projects" class="navbar__link">Projects</a></li>
           <li><a href="#blog"     class="navbar__link">Blog</a></li>
-          <li><a href="#resume" class="navbar__link">Resume</a></li>
+          <li>
+            <a
+              href="/assets/resume/Md_Fardin_Ahamed_Resume.pdf"
+              data-action="open-resume"
+              class="navbar__link"
+            >Resume</a>
+          </li>
           <li><a href="#contact"  class="navbar__cta">Contact</a></li>
         </ul>
 
@@ -213,11 +219,12 @@
               <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
             </svg>
           </a>
-          <a
-            href="#resume"
+          <button
             id="open-resume-btn"
             data-action="open-resume"
             class="btn btn--outline"
+            aria-haspopup="dialog"
+            aria-controls="resume-modal"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
                  fill="none" stroke="currentColor" stroke-width="2"
@@ -229,7 +236,7 @@
               <line x1="10" y1="9" x2="8" y2="9"/>
             </svg>
             Interactive Resume
-          </a>
+          </button>
           <a href="#blog" class="btn btn--outline">Read Blog</a>
         </div>
 
@@ -345,204 +352,6 @@
         </div>
 
       </div>
-    </div>
-  </section>
-
-
-  <!-- ══════════════════════════════════════════
-       INTERACTIVE RESUME SECTION
-  ══════════════════════════════════════════ -->
-  <section id="resume" class="resume-section">
-    <div class="container">
-
-      <div class="section-header reveal">
-        <span class="section-label">// CURRICULUM VITAE</span>
-        <h2 class="section-title">Interactive Resume.</h2>
-        <p class="section-description">
-          An overview of my academic foundation at CUET, core technical competencies, and security engineering experience.
-        </p>
-        <div class="resume-header__actions">
-          <button data-action="open-resume" class="btn btn--primary btn--sm">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-            </svg>
-            Full-Screen Modal
-          </button>
-          <a href="/assets/resume/Md_Fardin_Ahamed_Resume.pdf" download="Md_Fardin_Ahamed_Resume.pdf" class="btn btn--outline btn--sm" target="_blank" rel="noopener noreferrer">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
-            </svg>
-            Download PDF
-          </a>
-        </div>
-      </div>
-
-      <!-- Showcase Grid -->
-      <div class="resume-showcase">
-        
-        <!-- Badge Card -->
-        <div class="resume-card resume-card--badge reveal">
-          <div class="resume-card__header">
-            <div class="resume-card__avatar-badge">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                <path d="m9 12 2 2 4-4"/>
-              </svg>
-            </div>
-            <div>
-              <h3 class="resume-card__name">Md Fardin Ahamed</h3>
-              <span class="resume-card__status">
-                <span class="status-pulse"></span>
-                ETE Student @ CUET
-              </span>
-            </div>
-          </div>
-
-          <div class="resume-card__divider"></div>
-
-          <div class="resume-card__contact-group">
-            <div class="resume-contact-item">
-              <span class="resume-contact-icon">📍</span>
-              <div>
-                <span class="contact-label">Location</span>
-                <span class="contact-value">Chittagong, Bangladesh</span>
-              </div>
-            </div>
-
-            <div class="resume-contact-item">
-              <span class="resume-contact-icon">🎓</span>
-              <div>
-                <span class="contact-label">Institution</span>
-                <span class="contact-value">CUET (Dept. of ETE)</span>
-              </div>
-            </div>
-
-            <div class="resume-contact-item">
-              <span class="resume-contact-icon">✉️</span>
-              <div>
-                <span class="contact-label">Email</span>
-                <a href="mailto:fardin.ahamed.ete@gmail.com" class="contact-link">fardin.ahamed.ete@gmail.com</a>
-              </div>
-            </div>
-
-            <div class="resume-contact-item">
-              <span class="resume-contact-icon">📱</span>
-              <div>
-                <span class="contact-label">Phone</span>
-                <span class="contact-value">+880 1782-998818</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="resume-card__divider"></div>
-
-          <div class="resume-card__skills-group">
-            <span class="group-title">// DOMAIN COMPETENCIES</span>
-            <div class="resume-tech-pills">
-              <span>Packet Inspection</span>
-              <span>Wireshark</span>
-              <span>Nmap</span>
-              <span>Linux</span>
-              <span>Penetration Testing</span>
-              <span>TCP/IP Stack</span>
-              <span>Python</span>
-              <span>Arduino / C++</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Main Column: Timeline Cards -->
-        <div class="resume-main-column">
-          
-          <!-- Education Card -->
-          <div class="resume-card resume-card--timeline reveal reveal-delay-1">
-            <div class="card-head">
-              <div class="card-head__icon">🎓</div>
-              <div>
-                <h3 class="card-head__title">Education &amp; Academic Foundation</h3>
-                <span class="card-head__sub">Undergraduate Engineering Degree</span>
-              </div>
-            </div>
-
-            <div class="timeline-wrapper">
-              <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                  <div class="timeline-meta">
-                    <h4 class="timeline-title">B.Sc. in Electronics &amp; Telecommunication Engineering</h4>
-                    <span class="timeline-badge">2022 — Present</span>
-                  </div>
-                  <p class="timeline-org">Chittagong University of Engineering &amp; Technology (CUET)</p>
-                  <p class="timeline-desc">
-                    Specializing in Telecommunications, Microcontrollers, Signal Processing, and Network Security.
-                  </p>
-                  <div class="timeline-tags">
-                    <span>Computer Communication &amp; Networks</span>
-                    <span>Microcontrollers &amp; Embedded Systems</span>
-                    <span>Digital Signals</span>
-                    <span>Network Defense</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Featured Experience & Security Labs Card -->
-          <div class="resume-card resume-card--timeline reveal reveal-delay-2">
-            <div class="card-head">
-              <div class="card-head__icon">🛡️</div>
-              <div>
-                <h3 class="card-head__title">Practical Experience &amp; Security Labs</h3>
-                <span class="card-head__sub">Hands-on Engineering Practice</span>
-              </div>
-            </div>
-
-            <div class="timeline-wrapper">
-              <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                  <div class="timeline-meta">
-                    <h4 class="timeline-title">Network Packet Analysis &amp; Traffic Inspection Lab</h4>
-                    <span class="timeline-badge">Networking</span>
-                  </div>
-                  <p class="timeline-desc">
-                    Executed deep-dive packet captures using Wireshark to inspect TCP 3-way handshakes, DNS queries, and TLS encryption headers for protocol security audits.
-                  </p>
-                </div>
-              </div>
-
-              <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                  <div class="timeline-meta">
-                    <h4 class="timeline-title">Cybersecurity Reconnaissance &amp; CTF Labs</h4>
-                    <span class="timeline-badge">Cybersecurity</span>
-                  </div>
-                  <p class="timeline-desc">
-                    Conducted network reconnaissance using Nmap, solved CTF challenges, and built security writeups covering web vulnerabilities and system defense on TryHackMe.
-                  </p>
-                </div>
-              </div>
-
-              <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                  <div class="timeline-meta">
-                    <h4 class="timeline-title">Microcontroller Prototyping &amp; IoT Systems</h4>
-                    <span class="timeline-badge">Hardware</span>
-                  </div>
-                  <p class="timeline-desc">
-                    Engineered hardware sensor monitors using Arduino C++, UART/SPI serial buses, and microcontrollers for real-time telemetry tracking.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
     </div>
   </section>
 
