@@ -9,9 +9,9 @@ bio_text: |-
 
   I spend my time learning protocols, writing Python scripts, analysing packet captures, and working through CTF challenges. I believe in **learning by doing** and in openly sharing what I discover along the way.
 about_tags:
-  - CCNA
-  - Open Source
-  - Packet Analysis
+  - CCNA Aspirent
+  - Routing
+  - Switching
   - Arduino Tinkerer
   - Linux Daily Driver
   - Lifelong Learner
