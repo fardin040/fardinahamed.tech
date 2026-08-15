@@ -220,14 +220,18 @@
               <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
             </svg>
           </a>
-          <a
-            href="/assets/resume/Md_Fardin_Ahamed_Resume.pdf"
-            class="btn btn--outline"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Download Resume
-          </a>
+          <button id="open-resume-btn" class="btn btn--outline" aria-haspopup="dialog" aria-controls="resume-modal">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                 fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="16" y1="13" x2="8" y2="13"/>
+              <line x1="16" y1="17" x2="8" y2="17"/>
+              <line x1="10" y1="9" x2="8" y2="9"/>
+            </svg>
+            Interactive Resume
+          </button>
           <a href="#blog" class="btn btn--outline">Read Blog</a>
         </div>
 
@@ -535,7 +539,164 @@
 
       </div>
     </div>
-  </footer>
+  <!-- ══════════════════════════════════════════
+       INTERACTIVE RESUME MODAL
+  ══════════════════════════════════════════ -->
+  <div id="resume-modal" class="resume-modal" role="dialog" aria-modal="true" aria-labelledby="resume-modal-title" aria-hidden="true">
+    <div class="resume-modal__overlay" id="resume-modal-overlay"></div>
+    <div class="resume-modal__card">
+      
+      <!-- Modal Header -->
+      <div class="resume-modal__header">
+        <div class="resume-modal__title-group">
+          <div class="resume-modal__icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+              <polyline points="14 2 14 8 20 8"/>
+            </svg>
+          </div>
+          <div>
+            <h2 id="resume-modal-title" class="resume-modal__title">Md Fardin Ahamed — Resume</h2>
+            <span class="resume-modal__subtitle">Cybersecurity &amp; Networking | ETE Student</span>
+          </div>
+        </div>
+
+        <div class="resume-modal__actions">
+          <div class="resume-modal__tabs" role="tablist">
+            <button class="resume-modal__tab active" id="tab-interactive" role="tab" aria-selected="true" data-target="view-interactive">Interactive</button>
+            <button class="resume-modal__tab" id="tab-pdf" role="tab" aria-selected="false" data-target="view-pdf">PDF Document</button>
+          </div>
+
+          <a href="/assets/resume/Md_Fardin_Ahamed_Resume.pdf" download="Md_Fardin_Ahamed_Resume.pdf" class="btn btn--primary btn--sm" target="_blank" rel="noopener noreferrer">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Download PDF
+          </a>
+
+          <button class="resume-modal__close" id="close-resume-btn" aria-label="Close resume modal">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Modal Content Body -->
+      <div class="resume-modal__body">
+        
+        <!-- View 1: Interactive Structured Web Resume -->
+        <div id="view-interactive" class="resume-view active" role="tabpanel">
+          <div class="resume-grid">
+            
+            <aside class="resume-sidebar">
+              <div class="resume-sidebar__section">
+                <h3 class="resume-section-title">Contact &amp; Links</h3>
+                <ul class="resume-contact-list">
+                  <li>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    +880 1782-998818
+                  </li>
+                  <li>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    fardin.ahamed.ete@gmail.com
+                  </li>
+                  <li>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    Rajshahi, Bangladesh
+                  </li>
+                  <li>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                    <a href="https://fardinahamed.tech" target="_blank" rel="noopener noreferrer">fardinahamed.tech</a>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="resume-sidebar__section">
+                <h3 class="resume-section-title">Core Competencies</h3>
+                <div class="resume-skill-pills">
+                  <span>Packet Inspection</span>
+                  <span>Wireshark &amp; Nmap</span>
+                  <span>Linux SysAdmin</span>
+                  <span>Penetration Testing</span>
+                  <span>TCP/IP Stack</span>
+                  <span>Python Automation</span>
+                  <span>Arduino / C++</span>
+                  <span>Git &amp; CI/CD</span>
+                </div>
+              </div>
+
+              <div class="resume-sidebar__section">
+                <h3 class="resume-section-title">Languages</h3>
+                <p class="resume-desc">Bengali (Native), English (Professional)</p>
+              </div>
+            </aside>
+
+            <main class="resume-main">
+              
+              <section class="resume-block">
+                <h3 class="resume-block-title">Professional Summary</h3>
+                <p class="resume-paragraph">
+                  Electronics &amp; Telecommunication Engineering (ETE) student specializing in Cybersecurity, Computer Networks, and Hardware-Software Systems. Experienced in network traffic inspection, protocol security analysis, vulnerability testing labs, and IoT hardware prototyping.
+                </p>
+              </section>
+
+              <section class="resume-block">
+                <h3 class="resume-block-title">Education</h3>
+                <div class="resume-item">
+                  <div class="resume-item__head">
+                    <h4>B.Sc. in Electronics &amp; Telecommunication Engineering</h4>
+                    <span class="resume-date">2022 — Present</span>
+                  </div>
+                  <p class="resume-org">Rajshahi University of Engineering &amp; Technology (RUET)</p>
+                  <p class="resume-desc">Key Coursework: Computer Communications &amp; Networks, Digital Signals, Microcontrollers &amp; Embedded Systems, Network Security.</p>
+                </div>
+              </section>
+
+              <section class="resume-block">
+                <h3 class="resume-block-title">Featured Projects</h3>
+                <div class="resume-item">
+                  <div class="resume-item__head">
+                    <h4>Network Packet Analysis &amp; Traffic Inspection Lab</h4>
+                    <span class="resume-tag">Networking</span>
+                  </div>
+                  <p class="resume-desc">Deep-dive packet capture using Wireshark to analyze TCP 3-way handshakes, DNS queries, and HTTP/HTTPS headers for protocol security audits.</p>
+                </div>
+
+                <div class="resume-item">
+                  <div class="resume-item__head">
+                    <h4>Cybersecurity Vulnerability &amp; Reconnaissance Labs</h4>
+                    <span class="resume-tag">Security</span>
+                  </div>
+                  <p class="resume-desc">Practical threat modeling, port scanning via Nmap, CTF challenges, and TryHackMe security writeups focused on web and network defense.</p>
+                </div>
+
+                <div class="resume-item">
+                  <div class="resume-item__head">
+                    <h4>Embedded Microcontroller Systems</h4>
+                    <span class="resume-tag">Hardware / IoT</span>
+                  </div>
+                  <p class="resume-desc">Engineered sensor systems using Arduino C++, UART/SPI communications, and real-time hardware telemetry monitors.</p>
+                </div>
+              </section>
+
+            </main>
+
+          </div>
+        </div>
+
+        <!-- View 2: Native PDF Viewer -->
+        <div id="view-pdf" class="resume-view" role="tabpanel">
+          <iframe src="/assets/resume/Md_Fardin_Ahamed_Resume.pdf#toolbar=1&amp;navpanes=0" class="resume-pdf-frame" title="Md Fardin Ahamed PDF Resume"></iframe>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
 
   <!-- Scripts -->
   <script>

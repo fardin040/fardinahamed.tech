@@ -517,18 +517,60 @@
   }
 
 
-  /* ── Footer year ───────────────────────────────────────────── */
-  const yearEl = document.getElementById('year');
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
+  /* ── Interactive Resume Modal ────────────────────────────── */
+  function initResumeModal() {
+    const modal = document.getElementById('resume-modal');
+    const openBtns = document.querySelectorAll('#open-resume-btn, [data-action="open-resume"]');
+    const closeBtn = document.getElementById('close-resume-btn');
+    const overlay = document.getElementById('resume-modal-overlay');
+    const tabs = document.querySelectorAll('.resume-modal__tab');
+    const views = document.querySelectorAll('.resume-view');
 
+    if (!modal) return;
 
-  /* ── Keyboard: close mobile menu on Escape ────────────────── */
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && navMenu?.classList.contains('open')) {
-      navMenu.classList.remove('open');
-      hamburger?.setAttribute('aria-expanded', 'false');
-      hamburger?.focus();
+    function openModal(e) {
+      if (e) e.preventDefault();
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
     }
-  });
+
+    function closeModal() {
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    openBtns.forEach(btn => btn.addEventListener('click', openModal));
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (overlay) overlay.addEventListener('click', closeModal);
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && modal.classList.contains('is-open')) {
+        closeModal();
+      }
+    });
+
+    // Tab switching (Interactive vs PDF)
+    tabs.forEach(tab => {
+      tab.addEventListener('click', function () {
+        const targetId = this.getAttribute('data-target');
+        
+        tabs.forEach(t => {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        views.forEach(v => v.classList.remove('active'));
+
+        this.classList.add('active');
+        this.setAttribute('aria-selected', 'true');
+        
+        const targetView = document.getElementById(targetId);
+        if (targetView) targetView.classList.add('active');
+      });
+    });
+  }
+
+  initResumeModal();
 
 })();
