@@ -520,12 +520,6 @@
   /* ── Interactive Resume Modal ────────────────────────────── */
   function initResumeModal() {
     const modal = document.getElementById('resume-modal');
-    const openBtns = document.querySelectorAll('#open-resume-btn, [data-action="open-resume"]');
-    const closeBtn = document.getElementById('close-resume-btn');
-    const overlay = document.getElementById('resume-modal-overlay');
-    const tabs = document.querySelectorAll('.resume-modal__tab');
-    const views = document.querySelectorAll('.resume-view');
-
     if (!modal) return;
 
     function openModal(e) {
@@ -541,9 +535,18 @@
       document.body.style.overflow = '';
     }
 
-    openBtns.forEach(btn => btn.addEventListener('click', openModal));
-    if (closeBtn) closeBtn.addEventListener('click', closeModal);
-    if (overlay) overlay.addEventListener('click', closeModal);
+    // Event delegation for opening & closing
+    document.addEventListener('click', function (e) {
+      const trigger = e.target.closest('#open-resume-btn, [data-action="open-resume"], [aria-controls="resume-modal"]');
+      if (trigger) {
+        openModal(e);
+        return;
+      }
+
+      if (e.target.closest('#close-resume-btn') || e.target === document.getElementById('resume-modal-overlay')) {
+        closeModal();
+      }
+    });
 
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && modal.classList.contains('is-open')) {
@@ -552,6 +555,9 @@
     });
 
     // Tab switching (Interactive vs PDF)
+    const tabs = modal.querySelectorAll('.resume-modal__tab');
+    const views = modal.querySelectorAll('.resume-view');
+
     tabs.forEach(tab => {
       tab.addEventListener('click', function () {
         const targetId = this.getAttribute('data-target');
@@ -571,6 +577,10 @@
     });
   }
 
-  initResumeModal();
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initResumeModal);
+  } else {
+    initResumeModal();
+  }
 
 })();
