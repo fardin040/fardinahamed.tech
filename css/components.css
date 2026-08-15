@@ -1589,3 +1589,36 @@
     justify-content: space-between;
   }
 }
+
+/* ╔══════════════════════════════════════════════╗
+   ║  ON-PAGE RESUME SECTION                     ║
+   ╚══════════════════════════════════════════════╝ */
+
+.resume-section {
+  padding: 100px 0;
+  position: relative;
+}
+
+.resume-section__actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.resume-card {
+  background: rgba(18, 20, 26, 0.75);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  overflow: hidden;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
+  transition: border-color var(--ease-med), box-shadow var(--ease-med);
+}
+
+.resume-card:hover {
+  border-color: var(--border-hover);
+  box-shadow: 0 20px 56px rgba(0, 0, 0, 0.45), 0 0 24px rgba(252, 138, 125, 0.08);
+}
