@@ -26,6 +26,10 @@ education:
     period: 2021-2023
     institution: Narsingdi Science College
     notes: 'GPA: 5.00'
+  - degree: SSC
+    period: '2021'
+    institution: Dewanerchar High School
+    notes: 'GPA: 5.00'
 experience:
   - title: Network Packet Analysis & Traffic Inspection Lab
     tag: Networking
