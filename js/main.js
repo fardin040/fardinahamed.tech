@@ -517,10 +517,202 @@
   }
 
 
+  /* ── Fetch & Render CMS Resume Data ──────────────────────── */
+  function parseYamlFrontmatter(text) {
+    if (!text || !text.startsWith('---')) return {};
+    const parts = text.split('---');
+    if (parts.length < 3) return {};
+    const yaml = parts[1];
+    
+    const lines = yaml.split('\n');
+    const result = {};
+    let currentKey = null;
+    let currentObject = null;
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith('#')) continue;
+
+      const kvMatch = line.match(/^([a-zA-Z0-9_-]+):\s*(.*)$/);
+      if (kvMatch) {
+        const key = kvMatch[1];
+        let val = kvMatch[2].trim();
+        if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
+          val = val.slice(1, -1);
+        }
+
+        currentKey = key;
+        currentObject = null;
+        if (val === '') {
+          result[key] = [];
+        } else {
+          result[key] = val;
+        }
+        continue;
+      }
+
+      const listMatch = line.match(/^\s+-\s+(.+)$/);
+      if (listMatch && currentKey) {
+        let itemVal = listMatch[1].trim();
+        const subKvMatch = itemVal.match(/^([a-zA-Z0-9_-]+):\s*(.*)$/);
+        
+        if (subKvMatch) {
+          if (!Array.isArray(result[currentKey])) result[currentKey] = [];
+          let subVal = subKvMatch[2].trim();
+          if ((subVal.startsWith('"') && subVal.endsWith('"')) || (subVal.startsWith("'") && subVal.endsWith("'"))) {
+            subVal = subVal.slice(1, -1);
+          }
+          currentObject = { [subKvMatch[1]]: subVal };
+          result[currentKey].push(currentObject);
+        } else {
+          if (!Array.isArray(result[currentKey])) result[currentKey] = [];
+          if ((itemVal.startsWith('"') && itemVal.endsWith('"')) || (itemVal.startsWith("'") && itemVal.endsWith("'"))) {
+            itemVal = itemVal.slice(1, -1);
+          }
+          result[currentKey].push(itemVal);
+        }
+        continue;
+      }
+
+      const subPropMatch = line.match(/^\s+([a-zA-Z0-9_-]+):\s*(.*)$/);
+      if (subPropMatch && currentObject) {
+        let subVal = subPropMatch[2].trim();
+        if ((subVal.startsWith('"') && subVal.endsWith('"')) || (subVal.startsWith("'") && subVal.endsWith("'"))) {
+          subVal = subVal.slice(1, -1);
+        }
+        currentObject[subPropMatch[1]] = subVal;
+      }
+    }
+
+    return result;
+  }
+
+  async function loadCmsResumeData() {
+    try {
+      const timestamp = Date.now();
+      let markdownText = '';
+      
+      try {
+        const localRes = await fetchWithTimeout(`/content/settings/resume.md?t=${timestamp}`, { cache: 'no-store' }, 4000);
+        if (localRes.ok) {
+          markdownText = await localRes.text();
+        }
+      } catch {
+        // Ignore local error, try GitHub
+      }
+
+      if (!markdownText) {
+        const ghRes = await fetchWithTimeout(`${GH_RAW_BASE}/content/settings/resume.md?t=${timestamp}`, {}, 6000);
+        if (ghRes.ok) {
+          markdownText = await ghRes.text();
+        }
+      }
+
+      if (!markdownText) return;
+
+      const data = parseYamlFrontmatter(markdownText);
+      if (!data || Object.keys(data).length === 0) return;
+
+      // Header title & subtitle
+      if (data.full_name) {
+        const titleEl = document.getElementById('resume-modal-title');
+        if (titleEl) titleEl.textContent = `${data.full_name} — Resume`;
+      }
+      if (data.subtitle) {
+        const subEl = document.querySelector('.resume-modal__subtitle');
+        if (subEl) subEl.textContent = data.subtitle;
+      }
+
+      // PDF link & frame
+      if (data.pdf_file) {
+        const pdfUrl = safeUrl(data.pdf_file);
+        document.querySelectorAll('a[download="Md_Fardin_Ahamed_Resume.pdf"]').forEach(link => {
+          link.href = pdfUrl;
+        });
+        const pdfFrame = document.querySelector('.resume-pdf-frame');
+        if (pdfFrame) {
+          pdfFrame.src = `${pdfUrl}#toolbar=1&navpanes=0`;
+        }
+      }
+
+      // Contact List
+      const contactListEl = document.getElementById('resume-cms-contact');
+      if (contactListEl) {
+        let contactHtml = '';
+        if (data.phone) {
+          contactHtml += `<li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>${escapeHtml(data.phone)}</li>`;
+        }
+        if (data.email) {
+          contactHtml += `<li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:${escapeHtml(data.email)}">${escapeHtml(data.email)}</a></li>`;
+        }
+        if (data.location) {
+          contactHtml += `<li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>${escapeHtml(data.location)}</li>`;
+        }
+        if (data.website) {
+          contactHtml += `<li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg><a href="${safeUrl(data.website)}" target="_blank" rel="noopener noreferrer">${escapeHtml(data.website.replace(/^https?:\/\//, ''))}</a></li>`;
+        }
+        if (contactHtml) contactListEl.innerHTML = contactHtml;
+      }
+
+      // Skills
+      const skillsEl = document.getElementById('resume-cms-skills');
+      if (skillsEl && Array.isArray(data.skills)) {
+        skillsEl.innerHTML = data.skills.map(s => `<span>${escapeHtml(s)}</span>`).join('');
+      }
+
+      // Languages
+      const langEl = document.getElementById('resume-cms-languages');
+      if (langEl && data.languages) {
+        langEl.textContent = data.languages;
+      }
+
+      // Summary
+      const summaryEl = document.getElementById('resume-cms-summary');
+      if (summaryEl && data.summary) {
+        summaryEl.textContent = data.summary;
+      }
+
+      // Education
+      const eduEl = document.getElementById('resume-cms-education');
+      if (eduEl && Array.isArray(data.education)) {
+        eduEl.innerHTML = data.education.map(item => `
+          <div class="resume-item">
+            <div class="resume-item__head">
+              <h4>${escapeHtml(item.degree || '')}</h4>
+              <span class="resume-date">${escapeHtml(item.period || '')}</span>
+            </div>
+            <p class="resume-org">${escapeHtml(item.institution || '')}</p>
+            ${item.notes ? `<p class="resume-desc">${escapeHtml(item.notes)}</p>` : ''}
+          </div>
+        `).join('');
+      }
+
+      // Experience
+      const expEl = document.getElementById('resume-cms-experience');
+      if (expEl && Array.isArray(data.experience)) {
+        expEl.innerHTML = data.experience.map(item => `
+          <div class="resume-item">
+            <div class="resume-item__head">
+              <h4>${escapeHtml(item.title || '')}</h4>
+              <span class="resume-tag">${escapeHtml(item.tag || '')}</span>
+            </div>
+            <p class="resume-desc">${escapeHtml(item.description || '')}</p>
+          </div>
+        `).join('');
+      }
+
+    } catch (err) {
+      console.warn('Could not load CMS resume data dynamically:', err);
+    }
+  }
+
   /* ── Interactive Resume Modal ────────────────────────────── */
   function initResumeModal() {
     const modal = document.getElementById('resume-modal');
     if (!modal) return;
+
+    loadCmsResumeData();
 
     function openModal(e) {
       if (e) e.preventDefault();
