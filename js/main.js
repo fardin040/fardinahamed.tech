@@ -519,8 +519,10 @@
 
   /* ── Fetch & Render CMS Resume Data ──────────────────────── */
   function parseYamlFrontmatter(text) {
-    if (!text || !text.startsWith('---')) return {};
-    const parts = text.split('---');
+    if (!text) return {};
+    const cleaned = text.trim();
+    if (!cleaned.startsWith('---')) return {};
+    const parts = cleaned.split('---');
     if (parts.length < 3) return {};
     const yaml = parts[1];
     
