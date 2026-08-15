@@ -1,27 +1,31 @@
 ---
 full_name: Md Fardin Ahamed
-subtitle: Cybersecurity & Networking | ETE Student
-phone: "+880 1782-998818"
+subtitle: CCNA | ETE Student
+phone: +880 1308990042
 email: fardin.ahamed.ete@gmail.com
 location: Chittagong, Bangladesh
 website: https://fardinahamed.tech
 pdf_file: /assets/resume/Md_Fardin_Ahamed_Resume.pdf
 summary: Electronics & Telecommunication Engineering (ETE) student specializing in Cybersecurity, Computer Networks, and Hardware-Software Systems. Experienced in network traffic inspection, protocol security analysis, vulnerability testing labs, and IoT hardware prototyping.
 skills:
-  - Packet Inspection
+  - Cisco Packet Tracer
   - Wireshark & Nmap
   - Linux SysAdmin
   - Penetration Testing
   - TCP/IP Stack
   - Python Automation
   - Arduino / C++
-  - Git & CI/CD
+  - Typing Speed- 60 WPM
 languages: Bengali (Native), English (Professional)
 education:
   - degree: B.Sc. in Electronics & Telecommunication Engineering
-    period: 2022 — Present
+    period: 2024 — Present
     institution: Chittagong University of Engineering & Technology (CUET)
-    notes: "Key Coursework: Computer Communications & Networks, Digital Signals, Microcontrollers & Embedded Systems, Network Security."
+    notes: 'Key Coursework: Computer Communications & Networks, Digital Signals, Microcontrollers & Embedded Systems, Network Security.'
+  - degree: HSC
+    period: 2021-2023
+    institution: Narsingdi Science College
+    notes: 'GPA: 5.00'
 experience:
   - title: Network Packet Analysis & Traffic Inspection Lab
     tag: Networking
