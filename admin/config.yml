@@ -34,15 +34,17 @@ collections:
       - label: Resume & CV
         name: resume
         file: content/settings/resume.md
+        media_folder: "../../assets/resume"
+        public_folder: "/assets/resume"
         fields:
-          - { label: Full Name, name: full_name, widget: string, default: "Md Fardin Ahamed" }
-          - { label: Subtitle / Tagline, name: subtitle, widget: string, default: "Cybersecurity & Networking | ETE Student" }
-          - { label: Phone, name: phone, widget: string, default: "+880 1782-998818" }
-          - { label: Email, name: email, widget: string, default: "fardin.ahamed.ete@gmail.com" }
-          - { label: Location, name: location, widget: string, default: "Chittagong, Bangladesh" }
-          - { label: Website URL, name: website, widget: string, default: "https://fardinahamed.tech" }
-          - { label: Upload PDF Resume File, name: pdf_file, widget: file, required: false, hint: "Upload your PDF resume document here." }
-          - { label: Professional Summary, name: summary, widget: text }
+          - { label: Full Name, name: full_name, widget: string, default: "Md Fardin Ahamed", hint: "Displayed at top of resume header" }
+          - { label: Subtitle / Tagline, name: subtitle, widget: string, default: "CCNA | ETE Student", hint: "Main title badge under your name" }
+          - { label: Phone, name: phone, widget: string, default: "+880 1308990042", hint: "Contact phone number" }
+          - { label: Email, name: email, widget: string, default: "fardin.ahamed.ete@gmail.com", hint: "Contact email address" }
+          - { label: Location, name: location, widget: string, default: "Chittagong, Bangladesh", hint: "Current location" }
+          - { label: Website URL, name: website, widget: string, default: "https://fardinahamed.tech", hint: "Portfolio website link" }
+          - { label: Upload PDF Resume File, name: pdf_file, widget: file, required: false, hint: "Upload your latest PDF resume here." }
+          - { label: Professional Summary, name: summary, widget: text, hint: "1-paragraph bio summary" }
           - label: Core Skills & Competencies
             name: skills
             widget: list
@@ -69,8 +71,9 @@ collections:
     folder: content/projects
     create: true
     slug: "{{slug}}"
-    summary: "{{title}}"
+    summary: "{{title}} {{#featured}}⭐{{/featured}}"
     sortable_fields: [title]
+    search_fields: [title, description, technologies]
     view_filters:
       - { label: Featured, field: featured, pattern: true }
     media_folder: "../../assets/images/projects"
@@ -96,8 +99,9 @@ collections:
     folder: content/blog
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    summary: "{{date}} - {{title}}"
+    summary: "{{date}} — {{title}}"
     sortable_fields: [date, title, category]
+    search_fields: [title, excerpt, category, body]
     view_filters:
       - { label: Networking, field: category, pattern: Networking }
       - { label: Security, field: category, pattern: Security }
