@@ -71,7 +71,17 @@
     if (!cleaned.startsWith('/')) {
       cleaned = '/' + cleaned;
     }
-    return safeUrl(cleaned, '');
+    const safe = safeUrl(cleaned, '');
+    if (!safe) return '';
+    try {
+      const parsed = new URL(safe, window.location.origin);
+      if (!parsed.searchParams.has('v')) {
+        parsed.searchParams.set('v', '20260816');
+      }
+      return parsed.href;
+    } catch {
+      return safe;
+    }
   }
 
   function simpleHash(input) {
