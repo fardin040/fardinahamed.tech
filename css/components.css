@@ -744,11 +744,14 @@
 }
 
 .project-card__image {
-  width: calc(100% + 60px);
-  height: 170px;
-  margin: -30px -30px 12px;
+  width: calc(100% + 60px) !important;
+  max-width: none !important;
+  height: 180px;
+  margin: -30px -30px 16px -30px !important;
   object-fit: cover;
+  object-position: center;
   border-bottom: 1px solid var(--border);
+  display: block;
 }
 
 /* Top accent line */
