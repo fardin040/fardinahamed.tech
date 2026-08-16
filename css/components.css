@@ -1516,34 +1516,34 @@
 }
 
 .resume-main {
-  padding: 36px 40px;
+  padding: 30px 36px;
   background: #13161f;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  gap: 28px;
+  gap: 20px;
 }
 
 .resume-block-title {
   font-family: var(--font-heading);
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   font-weight: 700;
   color: #ffffff;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   letter-spacing: -0.01em;
   border-bottom: 1px solid rgba(252, 138, 125, 0.25);
-  padding-bottom: 8px;
+  padding-bottom: 6px;
 }
 
 .resume-paragraph {
   font-size: 0.94rem;
   color: #94a3b8;
-  line-height: 1.7;
+  line-height: 1.6;
   margin: 0;
 }
 
 .resume-item {
-  margin-bottom: 20px;
+  margin-bottom: 14px;
 }
 
 .resume-item:last-child {
