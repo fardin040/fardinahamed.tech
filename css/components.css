@@ -668,6 +668,103 @@
   border-color: rgba(252, 138, 125, 0.22);
 }
 
+.thm-native-badge {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #121827 0%, #1a2234 100%);
+  text-decoration: none;
+  color: var(--text-primary);
+  width: 100%;
+  box-sizing: border-box;
+  transition: background var(--ease-med);
+}
+
+.thm-native-badge:hover {
+  background: linear-gradient(135deg, #151d30 0%, #1f2a40 100%);
+}
+
+.thm-badge__avatar {
+  position: relative;
+  width: 54px;
+  height: 54px;
+  flex-shrink: 0;
+}
+
+.thm-badge__avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  box-shadow: 0 0 12px var(--accent-glow);
+}
+
+.thm-badge__status-dot {
+  position: absolute;
+  bottom: 1px;
+  right: 1px;
+  width: 12px;
+  height: 12px;
+  background: #10b981;
+  border: 2px solid #121827;
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
+}
+
+.thm-badge__info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  text-align: left;
+  flex-grow: 1;
+}
+
+.thm-badge__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.thm-badge__username {
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.thm-badge__platform {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--accent);
+  background: rgba(252, 138, 125, 0.12);
+  padding: 2px 8px;
+  border-radius: var(--r-full);
+  border: 1px solid var(--accent-border);
+}
+
+.thm-badge__title {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+.thm-badge__meta {
+  display: flex;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.thm-badge__tag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: #94a3b8;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
 .about__practice-badge-frame {
   width: 100%;
   height: 84px;
