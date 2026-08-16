@@ -313,6 +313,20 @@
     observeRevealElements(grid);
   }
 
+  function formatPublishedDate(rawDate) {
+    if (!rawDate) return '';
+    const cleanDate = String(rawDate).trim().split('T')[0];
+    const parts = cleanDate.split('-');
+    if (parts.length === 3) {
+      const [year, month, day] = parts.map(Number);
+      if (year && month && day) {
+        const dateObj = new Date(year, month - 1, day);
+        return dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      }
+    }
+    return cleanDate;
+  }
+
   function renderBlogPosts(blogDocs) {
     const grid = document.getElementById('blog-grid');
     if (!grid) return;
@@ -335,17 +349,16 @@
       const title = escapeHtml(meta.title || doc.slug);
       const category = escapeHtml(meta.category || 'Blog');
       const excerpt = escapeHtml((meta.excerpt || stripMarkdown(doc.body).slice(0, 170)).trim());
-      const date = meta.date || '2026-01-01';
-      const dateObj = new Date(date);
-      const prettyDate = Number.isNaN(dateObj.getTime())
-        ? date
-        : dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      const date = meta.date || '';
+      const prettyDate = formatPublishedDate(date);
+      const coverImage = normalizeImagePath(meta.cover_image || meta.image || '');
 
       const card = document.createElement('article');
       card.className = `blog-card reveal ${getDelayClass(index)}`;
       card.setAttribute('tabindex', '0');
       card.setAttribute('role', 'article');
       card.innerHTML = `
+        ${coverImage ? `<img class="blog-card__image" src="${coverImage}" alt="${title}" loading="lazy" decoding="async" />` : ''}
         <div class="blog-card__meta">
           <span class="blog-card__category">${category}</span>
           <time class="blog-card__date" datetime="${date}">${prettyDate}</time>
@@ -353,7 +366,7 @@
         <h3 class="blog-card__title">${title}</h3>
         <p class="blog-card__excerpt">${excerpt}</p>
         <div class="blog-card__read-more" aria-hidden="true">
-          Read more
+          Read article
           ${arrowIcon}
         </div>
       `;

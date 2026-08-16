@@ -917,6 +917,17 @@
   background: var(--bg-card-hover);
 }
 
+.blog-card__image {
+  width: calc(100% + 56px) !important;
+  max-width: none !important;
+  height: 180px;
+  margin: -28px -28px 14px -28px !important;
+  object-fit: cover;
+  object-position: center;
+  border-bottom: 1px solid var(--border);
+  display: block;
+}
+
 .blog-card__meta {
   display: flex;
   align-items: center;
