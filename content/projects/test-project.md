@@ -8,7 +8,7 @@ technologies:
   - 555 Timer IC
   - Digital Logic Design
 github_link: https://github.com/fardin040/RFID-Based-Smart-Door-Lock-Using-DLD
-image: /assets/images/projects/photo_2026-08-16_09-36-52.jpg
+image: assets/images/projects/RFID-Smart_Door_lock.jpg
 image_alt: Breadboard build of RFID-based smart door lock showing 74LS-series TTL logic circuit and status LEDs
 featured: true
 seo_title: RFID Smart Door Lock - Digital Logic Design Project
