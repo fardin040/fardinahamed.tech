@@ -982,12 +982,41 @@
     }
   }
 
+  function initTryHackMeBadge() {
+    const frame = document.querySelector('.about__practice-badge-frame');
+    const shell = document.querySelector('.about__practice-badge-shell');
+    if (!frame || !shell) return;
+
+    let loaded = false;
+
+    const showFallback = () => {
+      if (shell.querySelector('.tryhackme-fallback-badge')) return;
+      shell.innerHTML = `
+        <a href="https://tryhackme.com/p/fardinahamed" target="_blank" rel="noopener noreferrer" class="tryhackme-fallback-badge" title="View Md Fardin Ahamed on TryHackMe">
+          <img src="assets/images/tryhackme-badge-fallback.svg" alt="TryHackMe Profile - Md Fardin Ahamed" loading="lazy" />
+        </a>
+      `;
+    };
+
+    const timeout = setTimeout(() => {
+      if (!loaded) showFallback();
+    }, 4500);
+
+    frame.addEventListener('load', () => {
+      loaded = true;
+      clearTimeout(timeout);
+    });
+
+    frame.addEventListener('error', showFallback);
+  }
+
   function initAll() {
     loadCmsProfileData();
     initResumeModal();
     initFooterYear();
     initBackToTop();
     initScrollSpy();
+    initTryHackMeBadge();
   }
 
   if (document.readyState === 'loading') {

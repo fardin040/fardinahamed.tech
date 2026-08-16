@@ -676,6 +676,19 @@
   background: #121827;
 }
 
+.tryhackme-fallback-badge {
+  display: block;
+  width: 100%;
+  text-decoration: none;
+}
+
+.tryhackme-fallback-badge img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+
 .about__practice-caption {
   font-size: 0.88rem;
   color: var(--text-secondary);
