@@ -61,6 +61,19 @@
     }
   }
 
+  function normalizeImagePath(url) {
+    if (!url || !String(url).trim()) return '';
+    let cleaned = String(url).trim();
+    if (cleaned.startsWith('http://') || cleaned.startsWith('https://') || cleaned.startsWith('data:')) {
+      return safeUrl(cleaned, '');
+    }
+    cleaned = cleaned.replace(/^(\.\.\/)+/, '').replace(/^\.\//, '');
+    if (!cleaned.startsWith('/')) {
+      cleaned = '/' + cleaned;
+    }
+    return safeUrl(cleaned, '');
+  }
+
   function simpleHash(input) {
     let hash = 0;
     for (let i = 0; i < input.length; i += 1) {
@@ -262,7 +275,7 @@
       const title = escapeHtml(meta.title || doc.slug);
       const description = escapeHtml((meta.description || stripMarkdown(doc.body).slice(0, 190)).trim());
       const githubLink = safeUrl(meta.github_link || 'https://github.com/fardin040', 'https://github.com/fardin040');
-      const image = safeUrl(meta.image || '', '');
+      const image = normalizeImagePath(meta.image || '');
 
       const card = document.createElement('article');
       card.className = `project-card reveal ${getDelayClass(index)}`;
