@@ -1520,7 +1520,8 @@
   background: #13161f;
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  justify-content: flex-start;
+  gap: 28px;
 }
 
 .resume-block-title {
