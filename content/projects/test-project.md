@@ -2,13 +2,13 @@
 title: RFID-Based Smart Door Lock Using DLD
 description: A door lock where an RFID card grants access, but every control decision - unlocking, timed auto re-lock, status memory, and alarms - is implemented entirely in 7400-series TTL logic instead of software.
 technologies:
-  - Aruduino UNO
+  - Arduino UNO
   - MFRC522 RFID
   - 74LS-series TTL Logic
   - 555 Timer IC
   - Digital Logic Design
 github_link: https://github.com/fardin040/RFID-Based-Smart-Door-Lock-Using-DLD
-image: assets/images/projects/RFID-Smart_Door_lock.jpg
+image: "/assets/images/projects/RFID-Smart_Door_lock.jpg"
 image_alt: Breadboard build of RFID-based smart door lock showing 74LS-series TTL logic circuit and status LEDs
 featured: true
 seo_title: RFID Smart Door Lock - Digital Logic Design Project

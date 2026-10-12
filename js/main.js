@@ -246,26 +246,23 @@
   }
 
   async function fetchMarkdownCollection(folderPath, manifestPath) {
-    const [manifestResult, githubResult] = await Promise.allSettled([
-      fetchMarkdownCollectionFromManifest(manifestPath),
+    const manifestResult = await Promise.allSettled([
+      fetchMarkdownCollectionFromManifest(manifestPath)
+    ]);
+
+    if (manifestResult[0].status === 'fulfilled' && manifestResult[0].value.length) {
+      return manifestResult[0].value.sort((a, b) => a.slug.localeCompare(b.slug));
+    }
+
+    const githubResult = await Promise.allSettled([
       fetchMarkdownCollectionFromGitHub(folderPath)
     ]);
 
-    const merged = new Map();
-    const sources = [manifestResult, githubResult];
-
-    sources.forEach((result) => {
-      if (result.status !== 'fulfilled') return;
-      result.value.forEach((entry) => {
-        merged.set(entry.slug, entry);
-      });
-    });
-
-    if (!merged.size) {
-      throw new Error(`Could not load content for ${folderPath}.`);
+    if (githubResult[0].status === 'fulfilled' && githubResult[0].value.length) {
+      return githubResult[0].value.sort((a, b) => a.slug.localeCompare(b.slug));
     }
 
-    return Array.from(merged.values()).sort((a, b) => a.slug.localeCompare(b.slug));
+    throw new Error(`Could not load content for ${folderPath}.`);
   }
 
   function renderProjects(projectDocs) {

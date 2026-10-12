@@ -5,6 +5,7 @@ export default {
       const pathname = url.pathname.replace(/\/+$/, '').replace(/^\/.auth/, ''); // Remove /.auth prefix if present
 
       const ADMIN_URL = env.ADMIN_URL || 'https://fardinahamed.tech/admin/index.html';
+      const adminOrigin = new URL(ADMIN_URL).origin;
       const CLIENT_ID = env.GITHUB_CLIENT_ID;
       const CLIENT_SECRET = env.GITHUB_CLIENT_SECRET;
       
@@ -50,11 +51,11 @@ export default {
           return new Response('Missing authorization code from GitHub', { status: 400 });
         }
 
-        // Check CSRF cookie if available, but allow cross-site popup flows where cookies are partitioned/stripped
+        // Require the cookie and callback state so every authorization is CSRF-bound.
         const cookie = request.headers.get('Cookie') || '';
         const match = cookie.match(/__gh_oauth_state=([^;]+)/);
         const saved = match ? match[1] : null;
-        if (saved && state && saved !== state) {
+        if (!saved || !state || saved !== state) {
           return new Response('Invalid OAuth state', { status: 400 });
         }
 
@@ -98,7 +99,7 @@ export default {
       if (window.opener) {
         window.opener.postMessage(
           'authorization:' + provider + ':success:' + JSON.stringify({ token: token, provider: provider }),
-          '*'
+          ${JSON.stringify(adminOrigin)}
         );
         setTimeout(function() {
           window.close();
@@ -117,7 +118,8 @@ export default {
         return new Response(html, {
           status: 200,
           headers: {
-            'Content-Type': 'text/html; charset=utf-8'
+            'Content-Type': 'text/html; charset=utf-8',
+            'Cross-Origin-Opener-Policy': 'unsafe-none'
           }
         });
       }
