@@ -5,7 +5,7 @@ phone: +880 1308990042
 email: fardin.ahamed.ete@gmail.com
 location: Chittagong, Bangladesh
 website: https://fardinahamed.tech
-pdf_file: /assets/resume/Md_Fardin_Ahamed_Resume.pdf
+pdf_file: assets/resume/Fardin_Ahamed.pdf
 summary: Electronics & Telecommunication Engineering (ETE) student specializing in Cybersecurity, Computer Networks, and Hardware-Software Systems. Experienced in network traffic inspection, protocol security analysis, vulnerability testing labs, and IoT hardware prototyping.
 skills:
   - Cisco Packet Tracer
